@@ -1,0 +1,26 @@
+/* Estilos para la pantalla inicial*/
+#root { 
+    -fx-background-image: url('/Recursos/Imagenes/fondo2.png');
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1200 700;
+    -fx-background-position: center center;
+}
+.button{
+    -fx-background-color: blueviolet;
+}
+/* Estilo cuando se posiciona el rat�n sobre cualquier bot�n */
+.button:hover {
+    -fx-font-size: 30px; 
+}
+/* Estilo para bot�n con ID bPlay */
+#bPlay { 
+    -fx-text-fill: white; 
+}
+/* Estilo para bot�n con ID bScore */
+#bScore { 
+    -fx-text-fill: white; 
+}
+/* Estilo para bot�n con ID bExit */
+#bExit { 
+    -fx-text-fill: white; 
+}
