@@ -98,12 +98,6 @@ public class PantallaMenu {
         panelInferior.setPadding(new Insets(40));
         return panelInferior;
     }
-    public VBox getRoot2(){
-        return root2;
-    }
-    public void setRoot2(VBox root){
-        this.root2=root;
-    }
 
     public Araña getJugador() {
         return jugador;
@@ -120,4 +114,13 @@ public class PantallaMenu {
     public void setbEmpezar(Button bEmpezar) {
         this.bEmpezar = bEmpezar;
     }
+
+    public VBox getRoot2() {
+        return root2;
+    }
+
+    public void setRoot2(VBox root2) {
+        this.root2 = root2;
+    }
+
 }
