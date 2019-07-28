@@ -41,9 +41,9 @@ public class AtrapandoInsectos extends Application {
         paI.getbExit().setOnAction((ActionEvent e) -> {
             Platform.exit();
         });
-        //pMenu.getbEmpezar().setOnAction((ActionEvent e) -> {
-        //    pr.setScene(new Scene(pMenu.getRoot2()));
-        //});
+        pMenu.getbEmpezar().setOnAction((ActionEvent e) -> {
+            pr.setScene(new Scene(pMenu.getRoot2()));
+        });
         pr.setTitle("CATCH INSECTS!!");
         pr.setScene(scene);
         pr.show();
