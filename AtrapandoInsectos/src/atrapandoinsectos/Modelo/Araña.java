@@ -17,7 +17,6 @@ public class Araña extends Insecto {
     private int vidas=3;
     private String nombre;
     private String tipo;
-    private ImageView jugador;
     public Araña(){
         
     }
@@ -26,39 +25,11 @@ public class Araña extends Insecto {
         this.nombre = nombre;
         this.tipo=tipo;
         Image img=new Image(getClass().getResourceAsStream("/Recursos/Imagenes/"+tipo+".png"),75,75,true,true);
-        this.jugador = new ImageView(img);
+        imagen= new ImageView(img);
     }
-    public void fijarPosicionObjeto(double x, double y){
-        //fija la poscion de x con respecto a X y Y usando 
-        jugador.setLayoutX(x);
-        jugador.setLayoutY(y);
-        
-    }
-    public void girar(){
-        jugador.setRotate(90);
-        
-    }
-     public double getPosicionX(){
-        return jugador.getLayoutX();
-    }
-    
-    public double getPosicionY(){
-        return jugador.getLayoutY();
-    }
-   //Metodo para obtener la imagen
-    public Node getObjeto(){
-        return jugador;
-    }
-    public void Arriba(){
-        jugador.setRotate(360);
-    }
-    public void Derecha(){
-        jugador.setRotate(90);
-    }
-    public void Abajo(){
-        jugador.setRotate(180);
-    }
-    public void Izquierda(){
-        jugador.setRotate(270);
+ 
+    @Override
+    public void run() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 }

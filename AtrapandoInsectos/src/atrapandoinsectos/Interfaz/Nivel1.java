@@ -31,4 +31,29 @@ public class Nivel1 {
         gamePane.setId("gamePane");
         return rootInferior;
     }
+
+    public VBox getRoot3() {
+        return root3;
+    }
+
+    public void setRoot3(VBox root3) {
+        this.root3 = root3;
+    }
+
+    public Araña getJugador() {
+        return jugador;
+    }
+
+    public void setJugador(Araña jugador) {
+        this.jugador = jugador;
+    }
+
+    public Pane getGamePane() {
+        return gamePane;
+    }
+
+    public void setGamePane(Pane gamePane) {
+        this.gamePane = gamePane;
+    }
+    
 }
