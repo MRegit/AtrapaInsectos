@@ -22,7 +22,6 @@ public class AtrapandoInsectos extends Application {
 
     private static Scene scene;
     private static Scene scene2;
-    private static Scene scene3; //escena del primer nivel
     public static Stage pr;
 
     @Override
@@ -35,9 +34,11 @@ public class AtrapandoInsectos extends Application {
         VBox root2 = pMenu.getRoot2();
         scene2 = new Scene(root2, 1200, 700);  //escena para elegri al arana
         scene2.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
-
+        
+        //click en play que se dirige a la scena para elegir la arana
         paI.getbPlay().setOnAction((ActionEvent e) -> {   //dar accion al boton 
             pr.setScene(scene2);
+            
 
         });
 
@@ -50,14 +51,12 @@ public class AtrapandoInsectos extends Application {
             Platform.exit();
 
         });
-
+        //boton para empezar el juego
         pMenu.getbEmpezar().setOnAction((ActionEvent e) -> {
-            //pr.setScene(new Scene(pMenu.getRoot2()));
+            
             Nivel1 nivel = new Nivel1();                 //activa el timepo cuando presioa el boton play
-            scene3 = new Scene(nivel.getRoot3(), 1200, 700);
-            scene3.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
-            pr.setScene(scene3);
-
+            //scene3.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
+            
         });
         pr.setTitle("CATCH INSECTS!!");
         pr.setScene(scene);
