@@ -14,22 +14,30 @@ import javafx.scene.image.ImageView;
  * @author pc
  */
 public class Araña extends Insecto {
-    private int vidas=3;
+
+    private int vidas = 3;
     private String nombre;
     private String tipo;
-    public Araña(){
-        
+
+    public Araña() {
+
     }
-    public Araña(String nombre,String tipo, int puntos) {
+
+    public Araña(String nombre, String tipo, int puntos) {
         super(puntos);
         this.nombre = nombre;
-        this.tipo=tipo;
-        Image img=new Image(getClass().getResourceAsStream("/Recursos/Imagenes/"+tipo+".png"),75,75,true,true);
-        imagen= new ImageView(img);
+        this.tipo = tipo;
+        Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/" + tipo + ".png"), 90, 90, true, true);
+        imagen = new ImageView(img);
     }
- 
+
     @Override
     public void run() {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
+
+    public String getTipo() {
+        return tipo;
+    }
+
 }
