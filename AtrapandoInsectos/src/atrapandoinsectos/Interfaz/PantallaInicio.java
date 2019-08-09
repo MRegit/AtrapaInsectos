@@ -17,40 +17,39 @@ import javafx.scene.layout.VBox;
  * @author pc
  */
 public class PantallaInicio {
+
     private Pane root;
     private Button bPlay;
     private Button bScore;
-    private Button bExit ;
-    
-    public PantallaInicio(){
-        root=new Pane();
+    private Button bExit;
+
+    public PantallaInicio() {
+        root = new Pane();
         root.setId("root");
-        VBox root2=new VBox();
-        Image img=new Image(getClass().getResourceAsStream("/Recursos/Imagenes/LOGO.png"),450,350,true,true);
-        ImageView logo=new ImageView(img);
+        VBox root2 = new VBox();
+        Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/LOGO.png"), 450, 350, true, true);
+        ImageView logo = new ImageView(img);
         logo.setLayoutX(650);
         logo.setLayoutY(100);
 
-
-        bPlay=new Button("PLAY");
+        bPlay = new Button("PLAY");
         bPlay.setPrefSize(170, 85);
         bPlay.setId("bPlay");
 
         //bPlay.setAlignment(Pos.CENTER);
-        bScore=new Button("SCORE");
-        bScore.setId("bScore");
+        bScore = new Button("SCORE");
+        bScore.setId("bScore");    //identificaciond el nodo
         bScore.setPrefSize(170, 85);
-        bExit=new Button("EXIT");
+        bExit = new Button("EXIT");
         bExit.setId("bExit");
         bExit.setPrefSize(170, 85);
-        root2.getChildren().addAll(bPlay,bScore,bExit);
+        root2.getChildren().addAll(bPlay, bScore, bExit);
         root2.setAlignment(Pos.CENTER);
         root2.setSpacing(20);
         root2.setLayoutX(790);
         root2.setLayoutY(340);
-        root.getChildren().addAll(logo,root2);
+        root.getChildren().addAll(logo, root2);
 
-  
     }
 
     public Pane getRoot() {
@@ -84,5 +83,5 @@ public class PantallaInicio {
     public void setbExit(Button bExit) {
         this.bExit = bExit;
     }
-    
+
 }
