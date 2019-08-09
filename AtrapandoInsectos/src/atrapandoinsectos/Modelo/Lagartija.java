@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
  *
  * @author pc
  */
-package atrapandoinsectos.Modelo;
+
 
 import java.util.Random;
 import javafx.scene.image.Image;

@@ -74,4 +74,8 @@ public abstract class Insecto implements Runnable{
         this.parar = parar;
     }
 
+    public ImageView getImagen() {
+        return imagen;
+    }
+
 }

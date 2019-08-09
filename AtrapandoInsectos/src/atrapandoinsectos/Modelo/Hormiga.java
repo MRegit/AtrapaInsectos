@@ -21,8 +21,14 @@ import javafx.scene.image.ImageView;
 public class Hormiga extends Insecto{
     public Hormiga(int puntos) {
         super(puntos);
-        Image img=new Image(getClass().getResourceAsStream("/Recursos/Imagenes/hormiga.png"),75,75,true,true);
+        Image img=new Image(getClass().getResourceAsStream("/Recursos/Imagenes/hormiga.png"),50,50,true,true);
         imagen= new ImageView(img);
+        //imagen.relocate(100, 100);
+        //run();
+        Random r = new Random();
+        //hormigas en el panel aleatorio
+        imagen.setLayoutX(r.nextInt(500));
+        imagen.setLayoutY(r.nextInt(500));
     }
 
     @Override
@@ -33,7 +39,7 @@ public class Hormiga extends Insecto{
                 String[] eventos = {"UP", "DOWN", "RIGHT", "LEFT"};
                 Random indice = new Random();
                 int indice2 = indice.nextInt(4);
-                System.err.println(indice2);
+                System.err.println(indice2);  // salida de error
                 String evento = eventos[indice2];
                 switch (evento) {
                     case "UP":
@@ -137,5 +143,11 @@ public class Hormiga extends Insecto{
 
         }
 
+    public ImageView getImagen() {
+        return imagen;
+    }
+
+    
+    
     
 }
