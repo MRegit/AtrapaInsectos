@@ -12,10 +12,11 @@ import javafx.scene.image.ImageView;
  *
  * @author pc
  */
-public abstract class Insecto implements Runnable{
+public abstract class Insecto extends Thread{
+
     protected ImageView imagen;
     private int puntos;
-    public static boolean parar=false;
+    public static boolean parar = false;
 
     public Insecto() {
     }
@@ -39,30 +40,35 @@ public abstract class Insecto implements Runnable{
     public void setImagen(ImageView imagen) {
         this.imagen = imagen;
     }
-    public void fijarPosicionObjeto(double x, double y){
+
+    public void fijarPosicionObjeto(double x, double y) {
         //fija la poscion de x con respecto a X y Y usando 
         imagen.setLayoutX(x);
         imagen.setLayoutY(y);
-        
+
     }
 
-     public double getPosicionX(){
+    public double getPosicionX() {
         return imagen.getLayoutX();
     }
-    
-    public double getPosicionY(){
+
+    public double getPosicionY() {
         return imagen.getLayoutY();
     }
-    public void Derecha(){
+
+    public void Derecha() {
         imagen.setRotate(90);
     }
-    public void Abajo(){
+
+    public void Abajo() {
         imagen.setRotate(180);
     }
-    public void Izquierda(){
+
+    public void Izquierda() {
         imagen.setRotate(270);
     }
-        public void Arriba(){
+
+    public void Arriba() {
         imagen.setRotate(360);
     }
 

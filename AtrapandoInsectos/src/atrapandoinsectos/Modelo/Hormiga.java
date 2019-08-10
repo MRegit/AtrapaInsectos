@@ -15,16 +15,16 @@ import javafx.scene.image.ImageView;
  *
  * @author pc
  */
-public class Hormiga extends Insecto{
+public class Hormiga extends Insecto {
     public Hormiga(int puntos) {
         super(puntos);
-        Image img=new Image(getClass().getResourceAsStream("/Recursos/Imagenes/hormiga.png"),50,50,true,true);
-        imagen= new ImageView(img);
+        Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/hormiga.png"), 50, 50, true, true);
+        imagen = new ImageView(img);
     }
 
-    @Override
-    public void run(){
-        while (parar == false) {
+        @Override
+        public void run() {
+            while (parar == false) {
 
                 //Los condicionales sirven para que el personaje no pase los bordes
                 String[] eventos = {"UP", "DOWN", "RIGHT", "LEFT"};
@@ -50,7 +50,7 @@ public class Hormiga extends Insecto{
                                 try {
                                     sleep(50);
                                 } catch (InterruptedException ex) {
-                                    
+
                                 }
                             }
                             //chequearColisiones();
@@ -71,7 +71,7 @@ public class Hormiga extends Insecto{
                                 try {
                                     sleep(50);
                                 } catch (InterruptedException ex) {
-                                    
+
                                 }
 
                             }
@@ -94,7 +94,7 @@ public class Hormiga extends Insecto{
                                 try {
                                     sleep(50);
                                 } catch (InterruptedException ex) {
-                                    
+
                                 }
                             }
                             //chequearColisiones();
@@ -114,7 +114,7 @@ public class Hormiga extends Insecto{
                                 try {
                                     sleep(50);
                                 } catch (InterruptedException ex) {
-                                    
+
                                 }
                             }
                             //chequearColisiones();
@@ -122,16 +122,16 @@ public class Hormiga extends Insecto{
 
                         break;
                 }
-                
+
                 try {
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
-                   
+
                     System.out.println("Error");
                 }
 
             }
 
         }
-    
+
 }

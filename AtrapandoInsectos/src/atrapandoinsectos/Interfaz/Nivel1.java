@@ -53,11 +53,12 @@ public class Nivel1 {
     //private Hormiga hormiga;
     private List<Hormiga> hormigas = new ArrayList<>(); //lista de hormigas
     private List<Mosca> moscas = new ArrayList<>(); // list de moscas
+    private List<Thread> thrMove = new ArrayList<>();
     
 
     private int puntaje;
     
-
+    
     public Nivel1() {
 
         inicializar();
@@ -72,13 +73,15 @@ public class Nivel1 {
         crearHormigas();
         crearMoscas();
 
-        btsalir.setOnAction((ActionEvent e) -> {
+         btsalir.setOnAction((ActionEvent e) -> {
             thrTiempo.suspend(); // al dar click en el boton salir se detinee el tiempo
-            Insecto.parar=true;
-            Salir salir = new Salir(this.thrTiempo);
+            for (Thread hilos : thrMove) {
+                hilos.suspend();
+            }
+            Salir salir = new Salir(this.thrTiempo, this.thrMove);
 
         });
-        System.out.println(this.puntaje);
+        
 
     }
 
@@ -138,13 +141,13 @@ public class Nivel1 {
         root3.getChildren().addAll(panelsuper, gamePane);
     }
 
-    private void nuevoStage() {
+    public void nuevoStage() {
         Stage stage = new Stage();
         Scene scene = new Scene(root3, 1200, 700);
         scene.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Nivel 1");
-        
+        stage.setResizable(false);  //ventana con relleno no deseado
         stage.show();
 
     }
@@ -191,7 +194,7 @@ public class Nivel1 {
         }
     }
 
-    /*
+  /*
     creacion de la 5 hormigas
      */
     public void crearHormigas() {
@@ -203,8 +206,10 @@ public class Nivel1 {
             hormiga.fijarPosicionObjeto(pX, pY);
             hormigas.add(hormiga);
             gamePane.getChildren().add(hormiga.getObjeto());
-            Thread move =  new Thread(hormiga);
-            move.start();
+
+            Thread h = new Thread(hormiga);
+            thrMove.add(h);
+            h.start();
 
         }
     }
@@ -279,7 +284,7 @@ public class Nivel1 {
 
         @Override
         public void run() {
-            for (segundos = 0; segundos <= 100; segundos++) {
+            for (segundos = 0; segundos <= 1000; segundos++) {
                 try {
                     Platform.runLater(() -> lblTiempo.setText("Tiempo: " + segundos));
                     Thread.sleep(1000);

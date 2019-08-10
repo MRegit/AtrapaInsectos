@@ -59,7 +59,7 @@ public class Nivel2 {
         
         btsalir.setOnAction((ActionEvent e) -> {
             thrTiempo.stop(); // al dar click en el boton salir se detinee el tiempo
-            Salir salir = new Salir(this.thrTiempo);
+            //Salir salir = new Salir(this.thrTiempo);
         });
     }
     

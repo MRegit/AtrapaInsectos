@@ -5,6 +5,8 @@
  */
 package atrapandoinsectos.Interfaz;
 
+import atrapandoinsectos.Modelo.Insecto;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Pos;
@@ -27,11 +29,13 @@ public class Salir {
     private Button btcancelar;
     private HBox cajabotones;
     private Stage stage;
-    
-    private Thread thrTiempo;
 
-    public Salir(Thread thrTiempo) {
+       private Thread thrTiempo;
+    //private Thread thrMove;  //nuevo
+    private List<Thread> thrMove;
+    public Salir(Thread thrTiempo,List<Thread> thrMove) {
         this.thrTiempo = thrTiempo;
+        this.thrMove = thrMove;
         Inicializar();
         Organizar();
         nuevoStage();
@@ -41,19 +45,18 @@ public class Salir {
         });
         btcancelar.setOnAction((ActionEvent e) -> {
             //volver al nivel 1 o al nivel 2
-            
-//   try {
-//                thrTiempo.join(30000);
-//            } catch (InterruptedException ex) {
-//                Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
-//            }
+            //Insecto.parar = false;
             this.stage.close();
             this.thrTiempo.resume();
-            //this.thrTiempo.start();
+            for (Thread hilos : thrMove) {
+                hilos.resume();
+            }
+            //this.thrMove.resume();
+            
         });
     }
 
-    public void Inicializar() {
+     public void Inicializar() {
         root = new VBox();
         mensaje = new Label("¿Esta seguro que quiere salir del juego?");
         mensaje.setStyle("-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: WHITE;");
@@ -77,7 +80,7 @@ public class Salir {
 
     }
 
-    private void nuevoStage() {
+    public void nuevoStage() {
         stage = new Stage();
         Scene scene = new Scene(root, 200, 150);
         scene.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
