@@ -139,8 +139,8 @@ public class Nivel1 {
         panelsuper.getChildren().add(btsalir);
         panelsuper.setSpacing(180);
         panelsuper.setPrefSize(1200, 100);
-        //gamePane.setId("gamePane");
-        gamePane.getChildren().add(new ImageView(new Image("/Recursos/Imagenes/cesped1.png")));
+        gamePane.setId("gamePane");
+        //gamePane.getChildren().add(new ImageView(new Image("/Recursos/Imagenes/cesped1.png")));
         gamePane.setPrefSize(1200, 600);
         gamePane.getChildren().add(PantallaMenu.jugador.getObjeto());
         gamePane.getChildren().add(lagartija.getImagen());
@@ -343,7 +343,7 @@ public class Nivel1 {
                 try {
                     Platform.runLater(() -> lblpuntos.setText("Puntos: " + Nivel1.puntaje));
                     Thread.sleep(50);
-                    System.out.println("El puntajes es: " + Nivel1.puntaje);
+                    
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
                 }
