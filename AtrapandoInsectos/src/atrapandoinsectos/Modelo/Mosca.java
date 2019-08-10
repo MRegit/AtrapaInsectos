@@ -19,7 +19,7 @@ public class Mosca extends Insecto {
         super(puntos);
         Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/Mosca.png"), 70, 70, true, true);
         imagen = new ImageView(img);
-        
+
         Random r = new Random();
         imagen.setLayoutX(r.nextInt(500));
         imagen.setLayoutY(r.nextInt(500));
@@ -34,7 +34,4 @@ public class Mosca extends Insecto {
         return imagen;
     }
 
-    
-    
-    
 }

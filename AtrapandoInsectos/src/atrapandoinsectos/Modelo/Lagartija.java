@@ -12,8 +12,6 @@ import javafx.scene.image.ImageView;
  *
  * @author pc
  */
-
-
 import java.util.Random;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -28,9 +26,8 @@ public class Lagartija extends Insecto {
         super(puntos);
         Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/Lagartija-g.gif"), 175, 175, true, true);
         imagen = new ImageView(img);
-        imagen.relocate(100, 0);
         posicion();
-        //lagartija.relocate(50, 0);
+
     }
 
     @Override

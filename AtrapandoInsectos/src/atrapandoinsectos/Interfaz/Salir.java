@@ -30,10 +30,11 @@ public class Salir {
     private HBox cajabotones;
     private Stage stage;
 
-       private Thread thrTiempo;
+    private Thread thrTiempo;
     //private Thread thrMove;  //nuevo
     private List<Thread> thrMove;
-    public Salir(Thread thrTiempo,List<Thread> thrMove) {
+
+    public Salir(Thread thrTiempo, List<Thread> thrMove) {
         this.thrTiempo = thrTiempo;
         this.thrMove = thrMove;
         Inicializar();
@@ -44,19 +45,20 @@ public class Salir {
 
         });
         btcancelar.setOnAction((ActionEvent e) -> {
-            //volver al nivel 1 o al nivel 2
-            //Insecto.parar = false;
+
             this.stage.close();
             this.thrTiempo.resume();
             for (Thread hilos : thrMove) {
                 hilos.resume();
             }
-            //this.thrMove.resume();
-            
+
         });
     }
 
-     public void Inicializar() {
+    /*
+    metodo para inicializar las variables de esta scena
+     */
+    public void Inicializar() {
         root = new VBox();
         mensaje = new Label("¿Esta seguro que quiere salir del juego?");
         mensaje.setStyle("-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: WHITE;");
@@ -66,9 +68,12 @@ public class Salir {
         btcancelar.setStyle("-fx-text-fill: WHITE; -fx-background-color: ORANGE;");
         cajabotones = new HBox();
         root.setStyle("-fx-background-color: BLUE");
-        
 
     }
+
+    /*
+     metodo ue organiza toda la scena
+     */
 
     public void Organizar() {
         cajabotones.getChildren().addAll(btaceptar, btcancelar);
@@ -80,6 +85,9 @@ public class Salir {
 
     }
 
+    /*
+    meotdo que crea un nuevo stage
+     */
     public void nuevoStage() {
         stage = new Stage();
         Scene scene = new Scene(root, 200, 150);
@@ -90,4 +98,5 @@ public class Salir {
         stage.show();
 
     }
+    
 }

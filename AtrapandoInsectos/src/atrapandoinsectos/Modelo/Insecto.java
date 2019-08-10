@@ -12,7 +12,7 @@ import javafx.scene.image.ImageView;
  *
  * @author pc
  */
-public abstract class Insecto extends Thread{
+public abstract class Insecto extends Thread {
 
     protected ImageView imagen;
     private int puntos;

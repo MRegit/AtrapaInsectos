@@ -9,7 +9,6 @@ package atrapandoinsectos.Interfaz;
  *
  * @author pc
  */
-
 import atrapandoinsectos.Modelo.Araña;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -30,6 +29,7 @@ import javafx.stage.Stage;
  * @author pc
  */
 public class Nivel2 {
+
     private VBox root;
     private HBox panelsuper;
     private HBox c;
@@ -47,24 +47,22 @@ public class Nivel2 {
 
     private Araña jugador;
     private Pane gamePane;
-    
+
     private Thread thrTiempo;
-    
+
     public Nivel2() {
         inicializar();
         organizar();
         thrTiempo = new Thread(new Nivel2.Tiempo());
         thrTiempo.start();
         nuevoStage();
-        
+
         btsalir.setOnAction((ActionEvent e) -> {
             thrTiempo.stop(); // al dar click en el boton salir se detinee el tiempo
             //Salir salir = new Salir(this.thrTiempo);
         });
     }
-    
-    
-    
+
     public void inicializar() {
 
         panelsuper = new HBox();
@@ -86,9 +84,9 @@ public class Nivel2 {
         roca2.setFitWidth(50);
         roca1.relocate(400, 400);
         roca2.relocate(800, 500);
-        hoja1 =  new ImageView(new Image("/Recursos/Imagenes/hoja.png"));
-        hoja2 =  new ImageView(new Image("/Recursos/Imagenes/hoja.png"));
-        hoja3 =  new ImageView(new Image("/Recursos/Imagenes/hoja.png"));
+        hoja1 = new ImageView(new Image("/Recursos/Imagenes/hoja.png"));
+        hoja2 = new ImageView(new Image("/Recursos/Imagenes/hoja.png"));
+        hoja3 = new ImageView(new Image("/Recursos/Imagenes/hoja.png"));
         hoja1.relocate(50, 500);
         hoja2.relocate(1000, 300);
         hoja3.relocate(600, 600);
@@ -109,10 +107,9 @@ public class Nivel2 {
         //jugador.getImagen().setFitWidth(75);
         //jugador.getImagen().relocate(600, 350); //posicion de la arana central
         root = new VBox();
-        
-        
+
     }
-    
+
     public void organizar() {
 
         c.getChildren().add(corazon);
@@ -124,10 +121,9 @@ public class Nivel2 {
         panelsuper.getChildren().add(puntos);
         panelsuper.getChildren().add(btsalir);
         panelsuper.setSpacing(180);
-   
 
         gamePane.getChildren().add(new ImageView(new Image("/Recursos/Imagenes/cesped1.png")));
-        gamePane.getChildren().addAll(roca1,roca2,hoja1,hoja2,hoja3);
+        gamePane.getChildren().addAll(roca1, roca2, hoja1, hoja2, hoja3);
         //gamePane.getChildren().add(jugador.getImagen());
 
         root.getChildren().addAll(panelsuper, gamePane);
@@ -141,10 +137,9 @@ public class Nivel2 {
         stage.setTitle("Nivel 2");
         stage.setResizable(false);  //ventana con relleno no deseado
         stage.show();
-     
+
     }
-    
-    
+
     class Tiempo implements Runnable {
 
         int segundos;

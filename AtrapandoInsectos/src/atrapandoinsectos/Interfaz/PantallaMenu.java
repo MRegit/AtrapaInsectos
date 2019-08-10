@@ -31,7 +31,7 @@ public class PantallaMenu {
 
     private String nombre;
     private String tipo;
-    static  Araña jugador;
+    static Araña jugador;
     private Button bEmpezar;
     private VBox root2;
     private ImageView personaje;
@@ -41,75 +41,77 @@ public class PantallaMenu {
         root2.getChildren().addAll(seccionSuperior(), seccionCentro(), seccionInferior());
     }
 
-    public StackPane seccionSuperior(){
-        StackPane panelLogo=new StackPane();
-        panelLogo.setPrefSize(1200,150);
-        Image img=new Image(getClass().getResourceAsStream("/Recursos/Imagenes/LOGO.png"),200,200,true,true);
-        ImageView logo=new ImageView(img);
+    public StackPane seccionSuperior() {
+        StackPane panelLogo = new StackPane();
+        panelLogo.setPrefSize(1200, 150);
+        Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/LOGO.png"), 200, 200, true, true);
+        ImageView logo = new ImageView(img);
         panelLogo.getChildren().add(logo);
         panelLogo.setId("panelLogo");
         return panelLogo;
     }
-    public HBox seccionCentro(){
-        HBox rootCentro=new HBox();
-        VBox izquierda=new VBox();
+
+    public HBox seccionCentro() {
+        HBox rootCentro = new HBox();
+        VBox izquierda = new VBox();
         izquierda.setPadding(new Insets(30));
         izquierda.setSpacing(20);
-        StackPane derecha=new StackPane();
-        Rectangle instrucciones=new Rectangle(300,300);
+        StackPane derecha = new StackPane();
+        Rectangle instrucciones = new Rectangle(300, 300);
         derecha.getChildren().add(instrucciones);
-        GridPane informacion=new GridPane();
+        GridPane informacion = new GridPane();
         informacion.setVgap(20);
         informacion.setHgap(10);
-        StackPane  mostrador=new StackPane();
-        Label lNombre=new Label("NOMBRE:");
-        TextField nombre=new TextField("user 1");
-        Label lSkin=new Label("SKIN:");
-        Button guardarNombre=new Button("Guardar");
-        ComboBox comboSkin=new ComboBox<>();
+        StackPane mostrador = new StackPane();
+        Label lNombre = new Label("NOMBRE:");
+        TextField nombre = new TextField("user 1");
+        Label lSkin = new Label("SKIN:");
+        Button guardarNombre = new Button("Guardar");
+        ComboBox comboSkin = new ComboBox<>();
         comboSkin.setDisable(true);
- 
-        String[] skins={"spider1","Arana","araña1","araña4"};
+
+        String[] skins = {"spider1", "Arana", "araña1", "araña4"};
         comboSkin.setItems(FXCollections.observableArrayList(skins));
         comboSkin.setValue(skins[0]);
-        guardarNombre.setOnAction(new EventHandler<ActionEvent>(){
+        guardarNombre.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
                 comboSkin.setDisable(false);
-                tipo=(String)comboSkin.getValue();
-                jugador=new Araña(nombre.getText(),tipo,0);
+                tipo = (String) comboSkin.getValue();
+                jugador = new Araña(nombre.getText(), tipo, 0);
                 guardarNombre.setDisable(true);
             }
-            
+
         });
         informacion.add(lNombre, 0, 0);
         informacion.add(nombre, 1, 0);
         informacion.add(guardarNombre, 2, 0);
         informacion.add(lSkin, 0, 1);
         informacion.add(comboSkin, 1, 1);
-        comboSkin.setOnAction(new EventHandler<ActionEvent>(){
-            public void handle(ActionEvent event){
-                tipo=(String)comboSkin.getValue();
-                jugador=new Araña(nombre.getText(),tipo,0);
-                
-                Image img= new Image(getClass().getResourceAsStream("/Recursos/Imagenes/"+tipo+".png"),200,200,true,true);
+        comboSkin.setOnAction(new EventHandler<ActionEvent>() {
+            public void handle(ActionEvent event) {
+                tipo = (String) comboSkin.getValue();
+                jugador = new Araña(nombre.getText(), tipo, 0);
+
+                Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/" + tipo + ".png"), 200, 200, true, true);
                 personaje.setImage(img);
             }
         });
-        Image img=new Image(getClass().getResourceAsStream("/Recursos/Imagenes/spider1.png"),200,200,true,true);
-        personaje=new ImageView(img);
-        
+        Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/spider1.png"), 200, 200, true, true);
+        personaje = new ImageView(img);
+
         mostrador.getChildren().add(personaje);
-        izquierda.getChildren().addAll(informacion,mostrador);
-        rootCentro.getChildren().addAll(izquierda,derecha);
+        izquierda.getChildren().addAll(informacion, mostrador);
+        rootCentro.getChildren().addAll(izquierda, derecha);
         rootCentro.setAlignment(Pos.CENTER);
         rootCentro.setSpacing(200);
         rootCentro.setPadding(new Insets(20));
         return rootCentro;
     }
-    public StackPane seccionInferior(){
-        StackPane panelInferior=new StackPane();
-        bEmpezar=new Button("PLAY");
+
+    public StackPane seccionInferior() {
+        StackPane panelInferior = new StackPane();
+        bEmpezar = new Button("PLAY");
         panelInferior.getChildren().add(bEmpezar);
         bEmpezar.setPrefSize(170, 85);
         panelInferior.setPadding(new Insets(40));
