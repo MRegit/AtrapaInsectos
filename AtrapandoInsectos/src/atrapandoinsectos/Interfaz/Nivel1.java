@@ -7,10 +7,12 @@ package atrapandoinsectos.Interfaz;
 
 import atrapandoinsectos.Modelo.Araña;
 import atrapandoinsectos.Modelo.Hormiga;
+import atrapandoinsectos.Modelo.Insecto;
 import atrapandoinsectos.Modelo.Mosca;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -44,8 +46,6 @@ public class Nivel1 {
     private Button btsalir;
     private Label lblTiempo;
     private Label lblpuntos;
-
-    private Araña jugador;
     private Pane gamePane;
 
     private Thread thrTiempo;
@@ -74,6 +74,7 @@ public class Nivel1 {
 
         btsalir.setOnAction((ActionEvent e) -> {
             thrTiempo.suspend(); // al dar click en el boton salir se detinee el tiempo
+            Insecto.parar=true;
             Salir salir = new Salir(this.thrTiempo);
 
         });
@@ -99,7 +100,7 @@ public class Nivel1 {
         lagartija.setFitHeight(150);
         lagartija.relocate(50, 0);
         btsalir = new Button("Salir");
-        btsalir.setPrefSize(125, 85);
+        btsalir.setPrefSize(100, 75);
         gamePane = new Pane();
         lblTiempo = new Label("Tiempo: ");
         lblpuntos = new Label("Puntos: ");
@@ -107,11 +108,9 @@ public class Nivel1 {
         
        
 
-        jugador = new Araña("user", "spider1", 0); //inicializar la arana pasar los paametros 
-
-        jugador.getImagen().relocate(570, 300); //posicion de la arana central
-        jugador.getImagen().setFocusTraversable(true);
-        jugador.getImagen().setOnKeyPressed(e -> mover(e));
+        PantallaMenu.jugador.getObjeto().relocate(570, 300); //posicion de la arana central
+        PantallaMenu.jugador.getObjeto().setFocusTraversable(true);
+        PantallaMenu.jugador.getObjeto().setOnKeyPressed(e -> mover(e));
         
         
         
@@ -130,9 +129,10 @@ public class Nivel1 {
         panelsuper.getChildren().add(lblpuntos);
         panelsuper.getChildren().add(btsalir);
         panelsuper.setSpacing(180);
-
-        gamePane.getChildren().add(new ImageView(new Image("/Recursos/Imagenes/cesped1.png")));
-        gamePane.getChildren().add(jugador.getImagen());
+        panelsuper.setPrefSize(1200,100);
+        gamePane.setId("gamePane");
+        gamePane.setPrefSize(1200,600);
+        gamePane.getChildren().add(PantallaMenu.jugador.getObjeto());
         gamePane.getChildren().add(lagartija);
       
         root3.getChildren().addAll(panelsuper, gamePane);
@@ -144,7 +144,7 @@ public class Nivel1 {
         scene.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Nivel 1");
-        stage.setResizable(false);  //ventana con relleno no deseado
+        
         stage.show();
 
     }
@@ -153,26 +153,38 @@ public class Nivel1 {
         switch (e.getCode()) {
             case UP:
                 e.consume();
-                jugador.getImagen().setLayoutY(jugador.getImagen().getLayoutY() - 5);
+                PantallaMenu.jugador.Arriba();
+                if (PantallaMenu.jugador.getObjeto().getLayoutY() > 0) {
+        
+                PantallaMenu.jugador.getImagen().setLayoutY(PantallaMenu.jugador.getImagen().getLayoutY() - 5);
+                }
                 ColisionHormiga();
                 ColisionMosca();
+                
                 break;
             case DOWN:
-                jugador.getImagen().setLayoutY(jugador.getImagen().getLayoutY() + 5);
-                jugador.getImagen().setRotate(180);
+                PantallaMenu.jugador.Abajo();
+                if (PantallaMenu.jugador.getObjeto().getLayoutY() < 525) {
+                    PantallaMenu.jugador.getImagen().setLayoutY(PantallaMenu.jugador.getImagen().getLayoutY() + 5);
+                }
                 ColisionHormiga();
                 ColisionMosca();
                 break;
             case RIGHT:
                 e.consume();
-                jugador.getImagen().setLayoutX(jugador.getImagen().getLayoutX() + 5);
-                jugador.getImagen().setRotate(90);
+                PantallaMenu.jugador.Derecha();
+                if (PantallaMenu.jugador.getObjeto().getLayoutX() < 1025) {
+                    PantallaMenu.jugador.getImagen().setLayoutX(PantallaMenu.jugador.getImagen().getLayoutX() + 5);
+                }
                 ColisionHormiga();
                 ColisionMosca();
                 break;
             case LEFT:
-                jugador.getImagen().setLayoutX(jugador.getImagen().getLayoutX() - 5);
-                jugador.getImagen().setRotate(-90);
+                PantallaMenu.jugador.Izquierda();
+                if (PantallaMenu.jugador.getObjeto().getLayoutX() > 100) {
+                    PantallaMenu.jugador.getImagen().setLayoutX(PantallaMenu.jugador.getImagen().getLayoutX() - 5);
+                
+                }       
                 ColisionHormiga();
                 ColisionMosca();
                 break;
@@ -185,8 +197,12 @@ public class Nivel1 {
     public void crearHormigas() {
         for (int i = 0; i < 5; i++) {
             Hormiga hormiga = new Hormiga(10);
+            Random rd = new Random();
+            int pX = 100 + rd.nextInt(1000);
+            int pY = 10 + rd.nextInt(515);
+            hormiga.fijarPosicionObjeto(pX, pY);
             hormigas.add(hormiga);
-            gamePane.getChildren().add(hormiga.getImagen());
+            gamePane.getChildren().add(hormiga.getObjeto());
             Thread move =  new Thread(hormiga);
             move.start();
 
@@ -199,8 +215,12 @@ public class Nivel1 {
     public void crearMoscas() {
         for (int i = 0; i < 4; i++) {
             Mosca mosca = new Mosca(15);
+            Random rd = new Random();
+            int pX = 100 + rd.nextInt(1000);
+            int pY = 10 + rd.nextInt(515);
+            mosca.fijarPosicionObjeto(pX, pY);
             moscas.add(mosca);
-            gamePane.getChildren().add(mosca.getImagen());
+            gamePane.getChildren().add(mosca.getObjeto());
 
         }
     }
@@ -226,8 +246,8 @@ public class Nivel1 {
         
         while (itHormiga.hasNext()) {
             Hormiga h = itHormiga.next();
-            if (isCollision(h.getImagen(), jugador.getImagen())) {    // consdicion si la imagen colisiona con la arana
-                gamePane.getChildren().remove(h.getImagen());
+            if (isCollision(h.getImagen(), PantallaMenu.jugador.getImagen())) {    // consdicion si la imagen colisiona con la arana
+                gamePane.getChildren().remove(h.getObjeto());
                 itHormiga.remove();
                 this.puntaje += 10; //puntaje por cada colision
             }
@@ -242,8 +262,8 @@ public class Nivel1 {
         Iterator<Mosca> itMosca = moscas.iterator(); //ir uno a uno en una coleccion, puedo eliminar sin afectar su indice
         while (itMosca.hasNext()) {
             Mosca m = itMosca.next();
-            if (isCollision(m.getImagen(), jugador.getImagen())) {    // consdicion si la imagen colisiona con la arana
-                gamePane.getChildren().remove(m.getImagen());
+            if (isCollision(m.getImagen(), PantallaMenu.jugador.getImagen())) {    // consdicion si la imagen colisiona con la arana
+                gamePane.getChildren().remove(m.getObjeto());
                 itMosca.remove();
                 this.puntaje += 15; //puntaje por cada colision
             }
@@ -285,4 +305,13 @@ public class Nivel1 {
             }
         }
     }
+
+    public VBox getRoot3() {
+        return root3;
+    }
+
+    public void setRoot3(VBox root3) {
+        this.root3 = root3;
+    }
+    
 }

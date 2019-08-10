@@ -15,7 +15,7 @@ import javafx.scene.image.ImageView;
 public abstract class Insecto implements Runnable{
     protected ImageView imagen;
     private int puntos;
-    protected boolean parar;
+    public static boolean parar=false;
 
     public Insecto() {
     }

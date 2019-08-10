@@ -7,10 +7,7 @@ package atrapandoinsectos.Modelo;
 
 import static java.lang.Thread.sleep;
 import java.util.Random;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
-import javafx.scene.Node;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -23,12 +20,6 @@ public class Hormiga extends Insecto{
         super(puntos);
         Image img=new Image(getClass().getResourceAsStream("/Recursos/Imagenes/hormiga.png"),50,50,true,true);
         imagen= new ImageView(img);
-        //imagen.relocate(100, 100);
-        //run();
-        Random r = new Random();
-        //hormigas en el panel aleatorio
-        imagen.setLayoutX(r.nextInt(500));
-        imagen.setLayoutY(r.nextInt(500));
     }
 
     @Override
@@ -43,7 +34,7 @@ public class Hormiga extends Insecto{
                 String evento = eventos[indice2];
                 switch (evento) {
                     case "UP":
-                        super.getObjeto().setRotate(360);
+                        super.Arriba();
 
                         for (int i = 0; i < 40; i++) {
                             if (super.getObjeto().getLayoutY() > 90) {
@@ -67,10 +58,10 @@ public class Hormiga extends Insecto{
 
                         break;
                     case "DOWN":
-                        super.getObjeto().setRotate(180);
+                        super.Abajo();
                         for (int i = 0; i < 40; i++) {
 
-                            if (super.getObjeto().getLayoutY() < 550) {
+                            if (super.getObjeto().getLayoutY() < 525) {
 
                                 double y2 = super.getObjeto().getLayoutY() + 5;
                                 System.out.println(y2);
@@ -89,10 +80,10 @@ public class Hormiga extends Insecto{
 
                         break;
                     case "LEFT":
-                        super.getObjeto().setRotate(270);
+                        super.Izquierda();
                         for (int i = 0; i < 40; i++) {
 
-                            if (super.getObjeto().getLayoutX() > 10) {
+                            if (super.getObjeto().getLayoutX() > 100) {
 
                                 double x1 = super.getObjeto().getLayoutX() - 5;
                                 System.out.println(x1);
@@ -111,9 +102,9 @@ public class Hormiga extends Insecto{
 
                         break;
                     case "RIGHT":
-                        super.getObjeto().setRotate(90);
+                        super.Derecha();
                         for (int i = 0; i < 20; i++) {
-                            if (super.getObjeto().getLayoutX() < 950) {
+                            if (super.getObjeto().getLayoutX() < 1025) {
 
                                 double x2 = super.getObjeto().getLayoutX() + 5;
                                 System.out.println(x2);
@@ -142,12 +133,5 @@ public class Hormiga extends Insecto{
             }
 
         }
-
-    public ImageView getImagen() {
-        return imagen;
-    }
-
-    
-    
     
 }

@@ -4,16 +4,32 @@
     -fx-background-color: BLACK;
     -fx-background-position: center center;
 }
+#gamePane{ 
+    -fx-background-image: url('/Recursos/Imagenes/cesped1.png');
+    -fx-background-repeat: stretch;
+    -fx-background-size: 1200 600;
+    -fx-background-position: center center;
+}
+#rootEncabezado{
+    -fx-background-color: GRAY;
+    -fx-background-position: center center;
+}
 .button{
     -fx-background-color: blueviolet;
 }
 /* Estilo cuando se posiciona el rat�n sobre cualquier bot�n */
-.button:hover {
-    -fx-font-size: 25px; 
-}
 /* Estilo para bot�n con ID bPlay */
 #bEmpezar { 
     -fx-text-fill: white; 
+}
+#bEmpezar :hover{ 
+     -fx-font-size: 25px;
+}
+#bSalir { 
+    -fx-text-fill: white; 
+}
+#bSalir :hover{ 
+     -fx-font-size: 15px;
 }
 /* Estilo para bot�n con ID bScore */
 .label{

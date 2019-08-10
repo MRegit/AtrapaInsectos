@@ -22,6 +22,7 @@ public class AtrapandoInsectos extends Application {
 
     private static Scene scene;
     private static Scene scene2;
+    private static Scene scene3;
     public static Stage pr;
 
     @Override
@@ -55,8 +56,7 @@ public class AtrapandoInsectos extends Application {
         pMenu.getbEmpezar().setOnAction((ActionEvent e) -> {
             
             Nivel1 nivel = new Nivel1();                 //activa el timepo cuando presioa el boton play
-            //scene3.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
-            
+
         });
         pr.setTitle("CATCH INSECTS!!");
         pr.setScene(scene);
