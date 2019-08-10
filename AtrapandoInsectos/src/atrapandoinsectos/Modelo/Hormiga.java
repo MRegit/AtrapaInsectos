@@ -30,7 +30,7 @@ public class Hormiga extends Insecto {
                 String[] eventos = {"UP", "DOWN", "RIGHT", "LEFT"};
                 Random indice = new Random();
                 int indice2 = indice.nextInt(4);
-                System.err.println(indice2);  // salida de error
+                //System.err.println(indice2);  // salida de error
                 String evento = eventos[indice2];
                 switch (evento) {
                     case "UP":
@@ -42,7 +42,7 @@ public class Hormiga extends Insecto {
                                 //nuevay = posiciony - delta;
 
                                 double y1 = super.getObjeto().getLayoutY() - 5;
-                                System.out.println(y1);
+                                //System.out.println(y1);
                                 Platform.runLater(() -> {
                                     super.getObjeto().setLayoutY(y1);
 
@@ -64,7 +64,7 @@ public class Hormiga extends Insecto {
                             if (super.getObjeto().getLayoutY() < 525) {
 
                                 double y2 = super.getObjeto().getLayoutY() + 5;
-                                System.out.println(y2);
+                                //System.out.println(y2);
                                 Platform.runLater(() -> {
                                     super.getObjeto().setLayoutY(y2);
                                 });
@@ -86,7 +86,7 @@ public class Hormiga extends Insecto {
                             if (super.getObjeto().getLayoutX() > 100) {
 
                                 double x1 = super.getObjeto().getLayoutX() - 5;
-                                System.out.println(x1);
+                                //System.out.println(x1);
 
                                 Platform.runLater(() -> {
                                     super.getObjeto().setLayoutX(x1);
@@ -107,7 +107,7 @@ public class Hormiga extends Insecto {
                             if (super.getObjeto().getLayoutX() < 1025) {
 
                                 double x2 = super.getObjeto().getLayoutX() + 5;
-                                System.out.println(x2);
+                                //System.out.println(x2);
                                 Platform.runLater(() -> {
                                     super.getObjeto().setLayoutX(x2);
                                 });

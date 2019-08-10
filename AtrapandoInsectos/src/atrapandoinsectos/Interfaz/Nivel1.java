@@ -56,7 +56,7 @@ public class Nivel1 {
     private List<Thread> thrMove = new ArrayList<>();
     
 
-    private int puntaje;
+      private static int puntaje = 0;
     
     
     public Nivel1() {
@@ -288,6 +288,7 @@ public class Nivel1 {
                 try {
                     Platform.runLater(() -> lblTiempo.setText("Tiempo: " + segundos));
                     Thread.sleep(1000);
+                    
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
                 }
@@ -296,19 +297,24 @@ public class Nivel1 {
         }
 
     }
-
-    class Puntos implements Runnable {
+/*
+    hilo para que me ensena el incremento de puntos
+    */
+     class Puntos implements Runnable {
 
         @Override
         public void run() {
-
-            try {
-                Platform.runLater(() -> lblpuntos.setText("Puntos: " + puntaje));
-                Thread.sleep(1000);
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
+            for (int t = 0; t <= 1000; t++) {
+                try {
+                    Platform.runLater(() -> lblpuntos.setText("Puntos: " + Nivel1.puntaje));
+                    Thread.sleep(50);
+                    System.out.println("El puntajes es: " + Nivel1.puntaje);
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
         }
+
     }
 
     public VBox getRoot3() {
