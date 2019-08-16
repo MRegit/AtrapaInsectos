@@ -5,7 +5,6 @@
  */
 package atrapandoinsectos.Interfaz;
 
-import atrapandoinsectos.Modelo.Insecto;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -14,6 +13,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -21,8 +21,7 @@ import javafx.stage.Stage;
  *
  * @author Toshiba
  */
-public class Salir {
-
+public class NivelSuperado {
     private VBox root;
     private Label mensaje;
     private Button btaceptar;
@@ -30,49 +29,44 @@ public class Salir {
     private HBox cajabotones;
     private Stage stage;
 
-    private Thread thrTiempo;
-    //private Thread thrMove;  //nuevo
-    private List<Thread> thrMove;
-    
-    public Salir(Thread thrTiempo,List<Thread> thrMove) {
-        this.thrTiempo = thrTiempo;
-        this.thrMove = thrMove;
+    //private Thread thrTiempo;
+   
+    private Stage stageJuego;
+    public NivelSuperado(Stage stage1){
+        //this.thrTiempo = thrTiempo;
+        this.stageJuego = stage1;
         Inicializar();
         Organizar();
         nuevoStage();
         btaceptar.setOnAction((ActionEvent e) -> {
-            Platform.exit();
+            stageJuego.close();
+            Nivel2 nivel2 = new Nivel2();
+            this.stage.close();
 
         });
         btcancelar.setOnAction((ActionEvent e) -> {
-          
-            
-            this.stage.close();
-            this.thrTiempo.resume();
-            for (Thread hilos : thrMove) {
-                hilos.resume();
-            }
-            
-            
+//            this.stage.close();
+//            this.thrTiempo.resume();
+            Platform.exit();
         });
     }
-/*
+    
+    /*
     metodo para inicializar las variables de esta scena
     */
      public void Inicializar() {
         root = new VBox();
-        mensaje = new Label("¿Esta seguro que quiere salir del juego?");
-        mensaje.setStyle("-fx-font-size: 10px; -fx-font-weight: bold; -fx-text-fill: WHITE;");
+        mensaje = new Label("Nivel1 Superado! ¿Deseas continuar al sigueinte nivel?");
+        mensaje.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: WHITE;");
         btaceptar = new Button("Aceptar");
-        btcancelar = new Button("Cancelar");
+        btcancelar = new Button("Salir");
         btaceptar.setStyle("-fx-text-fill: WHITE; -fx-background-color: GREEN;");
         btcancelar.setStyle("-fx-text-fill: WHITE; -fx-background-color: ORANGE;");
         cajabotones = new HBox();
         root.setStyle("-fx-background-color: BLUE");
         
-
     }
-     /*
+      /*
      metodo ue organiza toda la scena
      */
 
@@ -85,18 +79,17 @@ public class Salir {
         root.setSpacing(20);
 
     }
-/*
+    /*
     meotdo que crea un nuevo stage
     */
     public void nuevoStage() {
         stage = new Stage();
-        Scene scene = new Scene(root, 200, 150);
+        Scene scene = new Scene(root, 400, 200);
         scene.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
         stage.setScene(scene);
-        stage.setTitle("Salir");
+        stage.setTitle("Felicidades");
         stage.setResizable(false);  //ventana con relleno no deseado
         stage.show();
 
     }
 }
-

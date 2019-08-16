@@ -2,14 +2,10 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
-package atrapandoinsectos.Interfaz;
+ */package atrapandoinsectos.Interfaz;
 
-/**
- *
- * @author pc
- */
 import atrapandoinsectos.Modelo.Araña;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
@@ -38,6 +34,7 @@ public class Nivel2 {
     private ImageView corazon3;
     private ImageView roca1;
     private ImageView roca2;
+    private ImageView roca3;
     private ImageView hoja1;
     private ImageView hoja2;
     private ImageView hoja3;
@@ -45,21 +42,30 @@ public class Nivel2 {
     private Label lblTiempo;
     private Label puntos;
 
-    private Araña jugador;
     private Pane gamePane;
 
     private Thread thrTiempo;
+    //private Thread thrMove;  //nuevo
+    private List<Thread> thrMove;
+
+    private Stage stage;
 
     public Nivel2() {
         inicializar();
         organizar();
-        thrTiempo = new Thread(new Nivel2.Tiempo());
-        thrTiempo.start();
         nuevoStage();
+        thrTiempo = new Thread(new Tiempo());
+        thrTiempo.start();
+        
 
         btsalir.setOnAction((ActionEvent e) -> {
-            thrTiempo.stop(); // al dar click en el boton salir se detinee el tiempo
-            //Salir salir = new Salir(this.thrTiempo);
+            thrTiempo.suspend(); // al dar click en el boton salir se detinee el tiempo
+//            for (Thread hilos : thrMove) {
+//                hilos.suspend();
+//            }
+
+            Salir salir = new Salir(this.thrTiempo, this.thrMove);
+
         });
     }
 
@@ -78,24 +84,28 @@ public class Nivel2 {
         corazon3.setFitWidth(50);
         roca1 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
         roca2 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
-        roca1.setFitHeight(50);
-        roca1.setFitWidth(50);
-        roca2.setFitHeight(50);
-        roca2.setFitWidth(50);
-        roca1.relocate(400, 400);
-        roca2.relocate(800, 500);
-        hoja1 = new ImageView(new Image("/Recursos/Imagenes/hoja.png"));
-        hoja2 = new ImageView(new Image("/Recursos/Imagenes/hoja.png"));
-        hoja3 = new ImageView(new Image("/Recursos/Imagenes/hoja.png"));
-        hoja1.relocate(50, 500);
-        hoja2.relocate(1000, 300);
-        hoja3.relocate(600, 600);
-        hoja1.setFitHeight(50);
-        hoja1.setFitWidth(50);
-        hoja2.setFitHeight(50);
-        hoja2.setFitWidth(50);
-        hoja3.setFitHeight(50);
-        hoja3.setFitWidth(50);
+        roca3 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
+        roca1.setFitHeight(150);
+        roca1.setFitWidth(150);
+        roca2.setFitHeight(150);
+        roca2.setFitWidth(150);
+        roca3.setFitHeight(150);
+        roca3.setFitWidth(150);
+        roca1.relocate(600, 100);
+        roca2.relocate(800, 400);
+        roca3.relocate(250, 300);
+        hoja1 = new ImageView(new Image("/Recursos/Imagenes/Hoja2.png"));  // aqui el error
+        hoja2 = new ImageView(new Image("/Recursos/Imagenes/Hoja2.png"));
+        hoja3 = new ImageView(new Image("/Recursos/Imagenes/Hoja2.png"));
+        hoja1.relocate(200, 120);
+        hoja2.relocate(550, 350);
+        hoja3.relocate(870, 200);
+        hoja1.setFitHeight(100);
+        hoja1.setFitWidth(100);
+        hoja2.setFitHeight(100);
+        hoja2.setFitWidth(100);
+        hoja3.setFitHeight(100);
+        hoja3.setFitWidth(100);
         btsalir = new Button("Salir");
         btsalir.setPrefSize(125, 85);
         gamePane = new Pane();
@@ -123,14 +133,14 @@ public class Nivel2 {
         panelsuper.setSpacing(180);
 
         gamePane.getChildren().add(new ImageView(new Image("/Recursos/Imagenes/cesped1.png")));
-        gamePane.getChildren().addAll(roca1, roca2, hoja1, hoja2, hoja3);
+        gamePane.getChildren().addAll(roca1, roca2, roca3, hoja1, hoja2, hoja3);
         //gamePane.getChildren().add(jugador.getImagen());
 
         root.getChildren().addAll(panelsuper, gamePane);
     }
 
-    private void nuevoStage() {
-        Stage stage = new Stage();
+    public void nuevoStage() {
+        stage = new Stage();
         Scene scene = new Scene(root, 1200, 700);
         scene.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
         stage.setScene(scene);
@@ -146,9 +156,9 @@ public class Nivel2 {
 
         @Override
         public void run() {
-            for (segundos = 100; segundos >= 0; segundos--) {
+            for (segundos = 0; segundos <= 1000; segundos++) {
                 try {
-                    Platform.runLater(() -> lblTiempo.setText("Tiempo Restante " + segundos));
+                    Platform.runLater(() -> lblTiempo.setText("Tiempo: " + segundos));
                     Thread.sleep(1000);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Nivel2.class.getName()).log(Level.SEVERE, null, ex);

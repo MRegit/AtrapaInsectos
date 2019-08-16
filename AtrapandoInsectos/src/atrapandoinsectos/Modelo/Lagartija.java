@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package atrapandoinsectos.Modelo;
 
 import javafx.scene.image.Image;
@@ -12,6 +13,8 @@ import javafx.scene.image.ImageView;
  *
  * @author pc
  */
+
+
 import java.util.Random;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -27,7 +30,7 @@ public class Lagartija extends Insecto {
         Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/Lagartija-g.gif"), 175, 175, true, true);
         imagen = new ImageView(img);
         posicion();
-
+       
     }
 
     @Override

@@ -2,8 +2,7 @@
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
- */
-package atrapandoinsectos.Modelo;
+ */package atrapandoinsectos.Modelo;
 
 import atrapandoinsectos.Interfaz.Nivel1;
 import java.util.Random;
@@ -23,6 +22,7 @@ public class Telarana extends Thread {
 
     public Telarana(ImageView img) {
         this.imagen = img;
+        imagen.setPickOnBounds(false);
 
     }
 

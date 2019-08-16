@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package atrapandoinsectos.Modelo;
 
 import static atrapandoinsectos.Modelo.Insecto.parar;
@@ -22,6 +23,7 @@ public class Hormiga extends Insecto {
         super(puntos);
         Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/hormiga.png"), 50, 50, true, true);
         imagen = new ImageView(img);
+        imagen.setPickOnBounds(false);
 
     }
 

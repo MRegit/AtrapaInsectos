@@ -3,6 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 package atrapandoinsectos.Modelo;
 
 import javafx.scene.Node;
@@ -29,6 +30,8 @@ public class Araña extends Insecto {
         this.tipo = tipo;
         Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/" + tipo + ".png"), 90, 90, true, true);
         imagen = new ImageView(img);
+        imagen.setPickOnBounds(false);
+        
     }
 
     @Override
@@ -39,5 +42,34 @@ public class Araña extends Insecto {
     public String getTipo() {
         return tipo;
     }
+
+    public int getVidas() {
+        return vidas;
+    }
+
+    public String getNombre() {
+        return nombre;
+    }
+
+    public void setVidas(int vidas) {
+        this.vidas = vidas;
+    }
+
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public ImageView getImagen() {
+        return imagen;
+    }
+
+    public void setImagen(ImageView imagen) {
+        this.imagen = imagen;
+    }
+    
 
 }
