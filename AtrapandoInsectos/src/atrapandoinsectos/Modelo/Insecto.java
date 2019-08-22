@@ -5,6 +5,7 @@
  */
 package atrapandoinsectos.Modelo;
 
+import javafx.animation.PathTransition;
 import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 
@@ -17,7 +18,7 @@ public abstract class Insecto extends Thread{
     protected ImageView imagen;
     private int puntos;
     public static boolean parar = false;
-
+    public static PathTransition pt;
     public Insecto() {
     }
 

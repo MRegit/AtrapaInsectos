@@ -5,9 +5,7 @@
  */
 package atrapandoinsectos.Interfaz;
 
-import atrapandoinsectos.Modelo.Araña;
 import atrapandoinsectos.Modelo.Hormiga;
-import atrapandoinsectos.Modelo.Insecto;
 import atrapandoinsectos.Modelo.Lagartija;
 import atrapandoinsectos.Modelo.Mosca;
 import atrapandoinsectos.Modelo.Telarana;
