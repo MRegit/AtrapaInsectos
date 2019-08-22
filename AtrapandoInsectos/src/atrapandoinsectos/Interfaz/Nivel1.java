@@ -5,6 +5,7 @@
  */
 package atrapandoinsectos.Interfaz;
 
+import atrapandoinsectos.AtrapandoInsectos;
 import atrapandoinsectos.Modelo.Hormiga;
 import atrapandoinsectos.Modelo.Lagartija;
 import atrapandoinsectos.Modelo.Mosca;
@@ -12,15 +13,20 @@ import atrapandoinsectos.Modelo.Telarana;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Optional;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -35,7 +41,7 @@ import javafx.stage.Stage;
  * @author pc
  */
 public class Nivel1 {
-
+    
     private VBox root3;
     private HBox panelsuper;
     private HBox c;
@@ -318,8 +324,9 @@ public class Nivel1 {
             gamePane.getChildren().remove(PantallaMenu.jugador.getImagen());//
             ImageView j = AparecerArana(PantallaMenu.jugador.getVidas());
 
-            gamePane.getChildren().add(j);
-//            
+            if (!gamePane.getChildren().add(j)) {
+                gamePane.getChildren().add(j);
+            }
         }
     }
 
@@ -497,12 +504,37 @@ public class Nivel1 {
             imagenjugador = PantallaMenu.jugador.getImagen();
             imagenjugador.relocate(570, 300);
         }
+//        if (vida == 1) {
+//            PantallaMenu.jugador.setVidas(vida - 1);
+//
+//            c.getChildren().remove(corazon3);
+//            imagenjugador = PantallaMenu.jugador.getImagen();
+//            imagenjugador.relocate(570, 300);
+//        }
         if (vida == 1) {
-            PantallaMenu.jugador.setVidas(vida - 1);
-
             c.getChildren().remove(corazon3);
-            imagenjugador = PantallaMenu.jugador.getImagen();
-            imagenjugador.relocate(570, 300);
+            Alert alert = new Alert(AlertType.CONFIRMATION);
+            alert.setTitle("Vidas terminadas");
+            alert.setHeaderText("Click en el boton Ok para guardar partida");
+            alert.setContentText("Al presionar cancel (fin del juego)");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                
+                //llamar al metodo que guarda los dtos del juego
+                
+                //regresar al menu para observar los score del juador
+                this.stage.close();
+                imagenjugador = PantallaMenu.jugador.getImagen();
+                imagenjugador.relocate(570, 300);
+
+            } else {
+                // ... user chose CANCEL or closed the dialog
+                Platform.exit();
+                imagenjugador = PantallaMenu.jugador.getImagen();
+                imagenjugador.relocate(570, 300);
+            }
+
         }
         //condicio para el alert 
         return imagenjugador;
