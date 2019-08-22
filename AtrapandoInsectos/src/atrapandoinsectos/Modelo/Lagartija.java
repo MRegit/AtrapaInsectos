@@ -86,25 +86,35 @@ public class Lagartija extends Insecto {
     public void setPath(Path path) {
         this.path = path;
     }
+
+    public void setImagen(ImageView imagen) {
+        this.imagen = imagen;
+    }
+
+    public ImageView getImagen() {
+        return imagen;
+    }
+    
     /*
     meto para la posicion inicial de la lagartija
      */
     public void posicion() {
         Random r = new Random();
-        int valorDado = r.nextInt(4);
-        if (valorDado == 0) {
+//        int valorDado = r.nextInt(4);
+        if (0 == 0) {
             imagen.relocate(80, 0);
         }
-        if (valorDado == 1) {
-            imagen.relocate(950, 0);
-        }
-        if (valorDado == 2) {
-            imagen.relocate(80, 500);
-        }
-        if (valorDado == 3) {
-            imagen.relocate(950, 500);
-
-        }
+//        if (valorDado == 1) {
+//            imagen.relocate(950, 0);
+//        }
+//        if (valorDado == 2) {
+//            imagen.relocate(80, 500);
+//        }
+//        if (valorDado == 3) {
+//            imagen.relocate(950, 500);
+//
+//        }
     }
+    
 
 }

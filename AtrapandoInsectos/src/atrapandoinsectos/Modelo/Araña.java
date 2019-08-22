@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package atrapandoinsectos.Modelo;
 
 import javafx.scene.Node;
@@ -73,3 +72,4 @@ public class Araña extends Insecto {
     
 
 }
+
