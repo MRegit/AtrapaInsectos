@@ -5,28 +5,32 @@
  */
 package atrapandoinsectos.Modelo;
 
+import java.io.BufferedWriter;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
  * @author israe
  */
-public class Jugador {
-    private String nombe;
+public class Jugador implements Comparable<Jugador>{
+    private String nombre;
     private LocalDate fecha;
     private int puntos;
     private int nivelAlcanzado;
     private int vidas = 3; 
 
-    public Jugador(String nombe, LocalDate fecha, int puntos, int nivelAlcanzado) {
-        this.nombe = nombe;
+    public Jugador(String nombre, LocalDate fecha, int puntos, int nivelAlcanzado) {
+        this.nombre = nombre;
         this.fecha = fecha;
         this.puntos = puntos;
         this.nivelAlcanzado = nivelAlcanzado;
     }
 
-    public String getNombe() {
-        return nombe;
+    public String getNombre() {
+        return nombre;
     }
 
     public LocalDate getFecha() {
@@ -45,8 +49,8 @@ public class Jugador {
         return vidas;
     }
 
-    public void setNombe(String nombe) {
-        this.nombe = nombe;
+    public void setNombe(String nombre) {
+        this.nombre = nombre;
     }
 
     public void setFecha(LocalDate fecha) {
@@ -67,10 +71,32 @@ public class Jugador {
 
     @Override
     public String toString() {
-        return "Jugador{" + "nombe=" + nombe + ", fecha=" + fecha + ", puntos=" + puntos + ", nivelAlcanzado=" + nivelAlcanzado + '}';
+        return "Jugador{" + "nombre=" + nombre + ", fecha=" + fecha + ", puntos=" + puntos + ", nivelAlcanzado=" + nivelAlcanzado + '}';
     }
     
-    
+    public void Escritura() {
+        try (BufferedWriter escribir = new BufferedWriter(new FileWriter("src/recursos/datos/jugadores.txt", true))) {
+            
+            escribir.write(nombre+ "," + fecha + "," + puntos + "," + nivelAlcanzado);
+            escribir.newLine();
+            escribir.close();
+            
+        } catch (IOException e) {
+            System.out.println("Error: " + e);
+        }
+    }
+
+    @Override
+    public int compareTo(Jugador o) {
+        
+        if(this.puntos>o.puntos) {
+            return -1;}
+        if(this.puntos==o.puntos) {
+            return 0; }
+        if(this.puntos<o.puntos) {
+            return 1;}
+        return 0;
+    }
     
     
     
