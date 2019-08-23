@@ -5,7 +5,6 @@
  */
 package atrapandoinsectos.Interfaz;
 
-import atrapandoinsectos.AtrapandoInsectos;
 import atrapandoinsectos.Modelo.Hormiga;
 import atrapandoinsectos.Modelo.Lagartija;
 import atrapandoinsectos.Modelo.Mosca;
@@ -19,7 +18,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.geometry.Bounds;
 import javafx.scene.Node;
 import javafx.scene.Scene;
@@ -41,7 +39,7 @@ import javafx.stage.Stage;
  * @author pc
  */
 public class Nivel1 {
-    
+
     private VBox root3;
     private HBox panelsuper;
     private HBox c;
@@ -55,8 +53,6 @@ public class Nivel1 {
     private Pane gamePane;
 
     private Thread thrTiempo;
-
-    private Thread thrQuitarLagartija;
 
     private final Thread thrpuntos;
     private Thread thrtelarana;
@@ -87,8 +83,6 @@ public class Nivel1 {
         thrpuntos = new Thread(new Puntos());
         thrpuntos.start();
         //hilo qie quila la imagen por el gif 
-        this.thrQuitarLagartija = new Thread(new QuitarLagartijaAtrapada());
-        this.thrQuitarLagartija.start();
 
         thrtelarana = new Thread(new Aparece());
         thrtelarana.start();
@@ -336,15 +330,14 @@ public class Nivel1 {
     public void ColisionTelaarana() {
         if (isCollision(telarana.getImagen(), PantallaMenu.jugador.getImagen())) {
 
-            if (!gamePane.getChildren().contains(this.imgTelaLagartija)) {
-                //detener el hilo de la lagartija
-                gamePane.getChildren().remove(telarana.getImagen());
-                this.imgTelaLagartija.relocate(lagartija.getImagen().getLayoutX(), lagartija.getImagen().getLayoutY());
-                gamePane.getChildren().remove(lagartija.getImagen());
-                gamePane.getChildren().add(imgTelaLagartija);
+            //detener el hilo de la lagartija
+            //gamePane.getChildren().remove(lagartija.getImagen());
+            gamePane.getChildren().remove(telarana.getImagen());
+            this.imgTelaLagartija.relocate(lagartija.getPosicionX(), lagartija.getPosicionY());
+            Thread thrQuitarLagartija = new Thread(new QuitarLagartijaAtrapada());
+            thrQuitarLagartija.start();
 
-            }
-
+            //gamePane.getChildren().add(imgTelaLagartija);
 //            System.out.println("despues de img telaLagartija");
         }
     }
@@ -423,33 +416,48 @@ public class Nivel1 {
     hilo para la telarana, aparece durante 5 segundos y demora en aparecer unos 30 segundos
      */
     class QuitarLagartijaAtrapada implements Runnable {
-
+        private boolean acabar=false;
         @Override
         public void run() {
 
-            do {
-
+            //
+//            do {
+//
+//                try {
+//                    Platform.runLater(() -> ColisionTelaarana());
+//                    Thread.sleep(5000);
+//                    Platform.runLater(() -> devueltalagartija());
+//                    Platform.runLater(()-> lagartija.setImagen("Lagartija-telerana.png"));
+//                    lagartija.getPt().play();
+//                } catch (InterruptedException ex) {
+//                    Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
+//                }
+//            } while (true);
+            while (acabar== false) {
+                lagartija.getPt().pause();
+                Platform.runLater(() -> lagartija.setImagen("Lagartija-telerana.png"));
                 try {
-                    Platform.runLater(() -> ColisionTelaarana());
                     Thread.sleep(5000);
-                    Platform.runLater(() -> devueltalagartija());
+                    acabar=true;
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } while (true);
+                lagartija.getPt().play();
+                Platform.runLater(() -> lagartija.setImagen("Lagartija-g.gif"));
+            }
         }
     }
 
     /*
     metodo que ace iniciar el hilo d ela lagartija y la hace aparecer
      */
-    private void devueltalagartija() {
-        if (gamePane.getChildren().contains(imgTelaLagartija)) {
-            gamePane.getChildren().remove(imgTelaLagartija);
-            gamePane.getChildren().add(lagartija.getImagen());
-            //activar el hilo de la telarana
-        }
-    }
+//    private void devueltalagartija() {
+//        if (gamePane.getChildren().contains(imgTelaLagartija)) {
+//            gamePane.getChildren().remove(imgTelaLagartija);
+//            //gamePane.getChildren().add(lagartija.getImagen());
+//            //activar el hilo de la telarana
+//        }
+//    }
 
     /*
     metod que maneja si la lagartija se choco con la telarana
@@ -520,9 +528,8 @@ public class Nivel1 {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-                
+
                 //llamar al metodo que guarda los dtos del juego
-                
                 //regresar al menu para observar los score del juador
                 this.stage.close();
                 imagenjugador = PantallaMenu.jugador.getImagen();

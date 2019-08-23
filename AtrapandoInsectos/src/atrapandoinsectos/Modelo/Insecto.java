@@ -85,4 +85,12 @@ public abstract class Insecto extends Thread{
         return imagen;
     }
 
+    public static PathTransition getPt() {
+        return pt;
+    }
+
+    public static void setPt(PathTransition pt) {
+        Insecto.pt = pt;
+    }
+
 }

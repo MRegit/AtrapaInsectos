@@ -71,14 +71,6 @@ public class Lagartija extends Insecto {
         return path;
     }
 
-    public PathTransition getPt() {
-        return pt;
-    }
-
-    public void setPt(PathTransition pt) {
-        this.pt = pt;
-    }
-
     public Path getPath() {
         return path;
     }
@@ -87,8 +79,10 @@ public class Lagartija extends Insecto {
         this.path = path;
     }
 
-    public void setImagen(ImageView imagen) {
-        this.imagen = imagen;
+    public void setImagen(String ruta) {
+        Image imag=new Image(getClass().getResourceAsStream("/Recursos/Imagenes/"+ruta), 175, 175, true, true);
+        this.imagen.setImage(imag);
+        
     }
 
     public ImageView getImagen() {
