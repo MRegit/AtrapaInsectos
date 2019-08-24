@@ -19,6 +19,8 @@ import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Bounds;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -106,6 +108,7 @@ public class Nivel1 {
     public void inicializar() {
 
         panelsuper = new HBox();
+        panelsuper.setId("panelsuper");
         c = new HBox();
         corazon = new ImageView(new Image("/Recursos/Imagenes/corazon.png"));
         corazon2 = new ImageView(new Image("/Recursos/Imagenes/corazon.png"));
@@ -119,6 +122,7 @@ public class Nivel1 {
         lagartija = new Lagartija(0);
         btsalir = new Button("Salir");
         btsalir.setPrefSize(100, 75);
+        btsalir.setId("botonSalir");
         gamePane = new Pane();
         lblTiempo = new Label("Tiempo: ");
         lblpuntos = new Label("Puntos: ");
@@ -145,6 +149,8 @@ public class Nivel1 {
         panelsuper.getChildren().add(c);
         panelsuper.getChildren().add(lblpuntos);
         panelsuper.getChildren().add(btsalir);
+        panelsuper.setAlignment(Pos.CENTER);
+        panelsuper.setPadding(new Insets(20, 5, 20, 5));
         panelsuper.setSpacing(180);
         panelsuper.setPrefSize(1200, 100);
         //gamePane.setId("gamePane");

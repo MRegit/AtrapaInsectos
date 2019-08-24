@@ -32,6 +32,7 @@ public class AtrapandoInsectos extends Application {
         PantallaInicio paI = new PantallaInicio(); 
         MostrarPuntajes puntajes = new MostrarPuntajes();//panta donde se elige play salir o historial
         scene = new Scene(paI.getRoot(), 1200, 700);
+        
         scene.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos.css").toExternalForm());
         VBox root2 = pMenu.getRoot2();
         scene2 = new Scene(root2, 1200, 700);  //escena para elegri al arana

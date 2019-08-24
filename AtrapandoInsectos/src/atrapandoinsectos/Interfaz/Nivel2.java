@@ -72,6 +72,7 @@ public class Nivel2 {
     public void inicializar() {
 
         panelsuper = new HBox();
+        panelsuper.setId("panelsuper");
         c = new HBox();
         corazon = new ImageView(new Image("/Recursos/Imagenes/corazon.png"));
         corazon2 = new ImageView(new Image("/Recursos/Imagenes/corazon.png"));

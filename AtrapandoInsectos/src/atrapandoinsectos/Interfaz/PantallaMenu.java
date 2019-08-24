@@ -55,6 +55,8 @@ public class PantallaMenu {
     public HBox seccionCentro(){
         HBox rootCentro=new HBox();
         VBox izquierda=new VBox();
+        rootCentro.setId("rootCentro");
+        izquierda.setId("izquierda");
         izquierda.setPadding(new Insets(30));
         izquierda.setSpacing(20);
         StackPane derecha=new StackPane();
@@ -63,6 +65,7 @@ public class PantallaMenu {
         GridPane informacion=new GridPane();
         informacion.setVgap(20);
         informacion.setHgap(10);
+        informacion.setId("informacion");
         StackPane  mostrador=new StackPane();
         Label lNombre=new Label("NOMBRE:");
         TextField nombre=new TextField("user 1");
