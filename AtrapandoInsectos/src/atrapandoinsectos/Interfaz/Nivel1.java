@@ -62,10 +62,8 @@ public class Nivel1 {
     private List<Hormiga> hormigas = new ArrayList<>(); //lista de hormigas
     private List<Mosca> moscas = new ArrayList<>(); // list de moscas
     private List<Thread> thrMove = new ArrayList<>();
-    private Telarana telarana;
-    //
-    Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/Telarana1.png"), 120, 120, true, true);
-    ImageView imgv = new ImageView(img);  //imagen de la telarana para hacer colision
+    private Telarana telarana = new Telarana();
+
     private Stage stage;
 
     private Thread Mlagartija;
@@ -77,18 +75,24 @@ public class Nivel1 {
         nuevoStage();
 
         thrTiempo = new Thread(new Tiempo());
+        thrTiempo.setDaemon(true);
         thrTiempo.start();
 
         thrpuntos = new Thread(new Puntos());
+        thrpuntos.setDaemon(true);
         thrpuntos.start();
+        
         //hilo qie quila la imagen por el gif 
 
         thrtelarana = new Thread(new Aparece());
+        thrtelarana.setDaemon(true);
         thrtelarana.start();
+        
         //inidio del hilo para el movimiento de la lagartija
         Mlagartija = new Thread(lagartija);
+        Mlagartija.setDaemon(true);
         Mlagartija.start();
-
+        
         crearHormigas();
         crearMoscas();
         //buscar nueva version de suspend
@@ -106,7 +110,7 @@ public class Nivel1 {
     }
 
     public void inicializar() {
-
+        Mosca.generarPaths();;
         panelsuper = new HBox();
         panelsuper.setId("panelsuper");
         c = new HBox();
@@ -126,9 +130,6 @@ public class Nivel1 {
         gamePane = new Pane();
         lblTiempo = new Label("Tiempo: ");
         lblpuntos = new Label("Puntos: ");
-        //
-
-        telarana = new Telarana(imgv);
 
         PantallaMenu.jugador.getObjeto().relocate(570, 300); //posicion de la arana central
         PantallaMenu.jugador.getObjeto().setFocusTraversable(true);
@@ -239,6 +240,7 @@ public class Nivel1 {
             hormigas.add(hormiga);
             gamePane.getChildren().add(hormiga.getObjeto());
             Thread h = new Thread(hormiga);
+            h.setDaemon(true);
             thrMove.add(h);
             h.start();
 
@@ -251,14 +253,12 @@ public class Nivel1 {
     public void crearMoscas() {
         for (int i = 0; i < 4; i++) {
             Mosca mosca = new Mosca(15);
-            Random rd = new Random();
-            int pX = 100 + rd.nextInt(1000);
-            int pY = 10 + rd.nextInt(515);
-            mosca.fijarPosicionObjeto(pX, pY);
             moscas.add(mosca);
             gamePane.getChildren().add(mosca.getObjeto());
-//            Thread m = new Thread(mosca);
-//            m.start();
+            Thread m = new Thread(mosca);
+            m.setDaemon(true);
+            thrMove.add(m);
+            m.start();
 
         }
     }
@@ -331,9 +331,10 @@ public class Nivel1 {
     colision entre la arana y la telarana, falta aumentar que la lagartija quede atrapada por 5 segundos
      */
     public void ColisionTelaarana() {
-        if (isCollision(telarana.getObjeto(), PantallaMenu.jugador.getObjeto())) {
+        if (isCollision(PantallaMenu.jugador.getObjeto(), telarana.getObjeto())) {
 
             gamePane.getChildren().remove(telarana.getObjeto());
+            telarana.setImagen();
             Thread thrQuitarLagartija = new Thread(new QuitarLagartijaAtrapada());
             thrQuitarLagartija.start();
 
@@ -388,26 +389,29 @@ public class Nivel1 {
      */
     class Aparece implements Runnable {
 
+        private boolean acabar = false;
+
         @Override
         public void run() {
-            try {
-                //agrega la telarana en una posicion aleatoria por 5 segundos
-                Random rd = new Random();
-                int milisegundos = 5000 + rd.nextInt(20000);
-                Thread.sleep(milisegundos);
-                Platform.runLater(() -> meterTelaArana());
-                Thread.sleep(10000);
-                
-                Platform.runLater(() -> {
-                    telarana.getObjeto().setDisable(true);
-                    gamePane.getChildren().remove(telarana.getObjeto());
-                    
-                });
+            while (acabar == false) {
+                try {
+                    //agrega la telarana en una posicion aleatoria por 5 segundos
+                    Random rd = new Random();
+                    int milisegundos = 5000 + rd.nextInt(20000);
+                    Thread.sleep(milisegundos);
+                    Platform.runLater(() -> meterTelaArana());
+                    Thread.sleep(10000);
+                    acabar = true;
+                    Platform.runLater(() -> {
+                        telarana.setImagen();
+                        gamePane.getChildren().remove(telarana.getObjeto());
 
-            } catch (InterruptedException ex) {
-                Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
+                    });
+
+                } catch (InterruptedException ex) {
+                    Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
+                }
             }
-
         }
     }
 
@@ -468,7 +472,7 @@ public class Nivel1 {
     y me resta un corazon
      */
     public Node AparecerArana(int vida) {
-            Node imagenjugador = null;
+        Node imagenjugador = null;
         if (vida == 3) {
             PantallaMenu.jugador.setVidas(vida - 1); //elimina una vida
             c.getChildren().remove(corazon);//elimina un corazon

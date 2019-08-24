@@ -21,9 +21,10 @@ public class Telarana extends Thread {
 
     private ImageView imagen;
 
-    public Telarana(ImageView img) {
-        this.imagen = img;
-        imagen.setPickOnBounds(false);
+    public Telarana() {
+        Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/Telarana1.png"), 120, 120, true, true);
+        imagen = new ImageView(img);
+        imagen.setPickOnBounds(true);
 
     }
 
@@ -41,4 +42,9 @@ public class Telarana extends Thread {
     public Node getObjeto() {
         return imagen;
     }
+
+    public void setImagen() {
+        this.imagen.setDisable(true);
+    }
+    
 }

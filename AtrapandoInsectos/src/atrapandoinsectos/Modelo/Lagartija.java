@@ -31,6 +31,7 @@ public class Lagartija extends Insecto {
         super(puntos);
         Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/Lagartija-g.gif"), 175, 175, true, true);
         imagen = new ImageView(img);
+        imagen.setPickOnBounds(true);
          path = generarPath();
         
        
