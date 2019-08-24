@@ -29,13 +29,14 @@ public class AtrapandoInsectos extends Application {
     public void start(Stage primaryStage) {
         pr = primaryStage;
         PantallaMenu pMenu = new PantallaMenu();     //pantalla donde se elige a la arana
-        PantallaInicio paI = new PantallaInicio();  //panta donde se elige play salir o historial
+        PantallaInicio paI = new PantallaInicio(); 
+        MostrarPuntajes puntajes = new MostrarPuntajes();//panta donde se elige play salir o historial
         scene = new Scene(paI.getRoot(), 1200, 700);
         scene.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos.css").toExternalForm());
         VBox root2 = pMenu.getRoot2();
         scene2 = new Scene(root2, 1200, 700);  //escena para elegri al arana
         scene2.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
-        
+        scene3 = new Scene (puntajes.getRoot(),1200,700);
         //click en play que se dirige a la scena para elegir la arana
         paI.getbPlay().setOnAction((ActionEvent e) -> {   //dar accion al boton 
             pr.setScene(scene2);
@@ -45,8 +46,14 @@ public class AtrapandoInsectos extends Application {
 
         // boton para acceder a la venta del historial del jugador
         paI.getbScore().setOnAction((ActionEvent e) -> {
-
+               pr.setScene(scene3);
         });
+        
+        // Boton en Mostrar resultados para regresar al menu
+        puntajes.getBt().setOnAction((ActionEvent e)->{
+               pr.setScene(scene);
+        });
+        
         //boton para salir del juego
         paI.getbExit().setOnAction((ActionEvent e) -> {
             Platform.exit();
