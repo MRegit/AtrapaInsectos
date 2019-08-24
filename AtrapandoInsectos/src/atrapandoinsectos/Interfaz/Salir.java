@@ -6,6 +6,9 @@
 package atrapandoinsectos.Interfaz;
 
 import atrapandoinsectos.Modelo.Insecto;
+import atrapandoinsectos.Modelo.Lagartija;
+import atrapandoinsectos.Modelo.Mosca;
+import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -29,14 +32,22 @@ public class Salir {
     private Button btcancelar;
     private HBox cajabotones;
     private Stage stage;
-
+    private List<Mosca> moscas;
+    private Lagartija lagartija;
     private Thread thrTiempo;
     //private Thread thrMove;  //nuevo
     private List<Thread> thrMove;
-    
-    public Salir(Thread thrTiempo,List<Thread> thrMove) {
+
+    public Salir(Thread thrTiempo, List<Thread> thrMove) {
         this.thrTiempo = thrTiempo;
         this.thrMove = thrMove;
+    }
+    
+    public Salir(Thread thrTiempo,List<Thread> thrMove,List<Mosca> moscas,Lagartija lagartija) {
+        this.thrTiempo = thrTiempo;
+        this.thrMove = thrMove;
+        this.moscas=moscas;
+        this.lagartija=lagartija;
         Inicializar();
         Organizar();
         nuevoStage();
@@ -51,6 +62,10 @@ public class Salir {
             this.thrTiempo.resume();
             for (Thread hilos : thrMove) {
                 hilos.resume();
+            }
+            lagartija.getPt().play();
+            for(Mosca m:moscas){
+                m.getPt().play();
             }
             
             

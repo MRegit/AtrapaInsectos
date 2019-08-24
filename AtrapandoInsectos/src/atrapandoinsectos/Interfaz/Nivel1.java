@@ -9,6 +9,8 @@ import atrapandoinsectos.Modelo.Hormiga;
 import atrapandoinsectos.Modelo.Lagartija;
 import atrapandoinsectos.Modelo.Mosca;
 import atrapandoinsectos.Modelo.Telarana;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -34,6 +36,9 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
 
 /**
@@ -81,30 +86,33 @@ public class Nivel1 {
         thrpuntos = new Thread(new Puntos());
         thrpuntos.setDaemon(true);
         thrpuntos.start();
-        
-        //hilo qie quila la imagen por el gif 
 
+        //hilo qie quila la imagen por el gif 
         thrtelarana = new Thread(new Aparece());
         thrtelarana.setDaemon(true);
         thrtelarana.start();
-        
+
         //inidio del hilo para el movimiento de la lagartija
         Mlagartija = new Thread(lagartija);
         Mlagartija.setDaemon(true);
         Mlagartija.start();
-        
+
         crearHormigas();
         crearMoscas();
         //buscar nueva version de suspend
         btsalir.setOnAction((ActionEvent e) -> {
             thrTiempo.suspend(); // al dar click en el boton salir se detinee el tiempo
             Mlagartija.suspend();
+            e.consume();
             for (Thread hilos : thrMove) {
                 hilos.suspend();
             }
-
-            Salir salir = new Salir(this.thrTiempo, this.thrMove);
-
+            lagartija.getPt().pause();
+            for(Mosca m:moscas){
+                m.getPt().pause();
+            }
+            Salir salir = new Salir(this.thrTiempo, this.thrMove,moscas,lagartija);
+            e.consume();
         });
 
     }
@@ -146,13 +154,14 @@ public class Nivel1 {
 
         c.getChildren().add(corazon2);
         c.getChildren().add(corazon3);
+        panelsuper.getChildren().add(seccionMusica());
         panelsuper.getChildren().add(lblTiempo);
         panelsuper.getChildren().add(c);
         panelsuper.getChildren().add(lblpuntos);
         panelsuper.getChildren().add(btsalir);
         panelsuper.setAlignment(Pos.CENTER);
         panelsuper.setPadding(new Insets(20, 5, 20, 5));
-        panelsuper.setSpacing(180);
+        panelsuper.setSpacing(150);
         panelsuper.setPrefSize(1200, 100);
         //gamePane.setId("gamePane");
         gamePane.getChildren().add(new ImageView(new Image("/Recursos/Imagenes/cesped1.png")));
@@ -174,6 +183,45 @@ public class Nivel1 {
 
     }
 
+    public VBox seccionMusica() {
+        VBox paneles = new VBox();
+        Path path = Paths.get("src/Recursos/Musica/musica.mp3");
+        Media media = new Media(path.toFile().toURI().toString());
+        //Se crea un nuevo objeto de tipo MediaPlayer
+        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        //se indica que se inicie automaticamente cuando se cree la clase PantallaJuego
+        mediaPlayer.setAutoPlay(true);
+        //La musica se repetirá una y otra vez
+        mediaPlayer.setCycleCount(20);
+        //Se crean los botones de play y pausa para la música
+        Button play = new Button("");
+        play.setPrefSize(30, 30);
+        play.setStyle("-fx-background-image:url('/Recursos/Imagenes/play.png');"
+                + "-fx-background-repeat: stretch;"
+                + "-fx-background-size: " + 60 + " " + (60) + "; "
+                + "-fx-background-position: center center;");
+        Button pau = new Button("");
+        pau.setPrefSize(30, 30);
+        pau.setStyle("-fx-background-image: url('/Recursos/Imagenes/pause.png');"
+                + "-fx-background-repeat: stretch;"
+                + "-fx-background-size: " + 60 + " " + (60) + "; "
+                + "-fx-background-position: center center;");
+        //se crean los eventos de cada boton para que el usuario pueda interactuar con ellos.
+        play.setOnAction(e -> {
+            e.consume();
+            mediaPlayer.play();
+        });
+        pau.setOnAction(e -> {
+            e.consume();
+            mediaPlayer.pause();
+        });
+        MediaView mediaView = new MediaView(mediaPlayer);
+        paneles.getChildren().addAll(play, pau);
+        paneles.setSpacing(10);
+        paneles.setAlignment(Pos.CENTER);
+        return paneles;
+    }
+
     /*
     metodo para mover la arana y sus colisiones
      */
@@ -193,6 +241,7 @@ public class Nivel1 {
 
                 break;
             case DOWN:
+                
                 PantallaMenu.jugador.Abajo();
                 if (PantallaMenu.jugador.getObjeto().getLayoutY() < 525) {
                     PantallaMenu.jugador.getObjeto().setLayoutY(PantallaMenu.jugador.getObjeto().getLayoutY() + 5);
@@ -214,6 +263,7 @@ public class Nivel1 {
                 ColisionTelaarana();
                 break;
             case LEFT:
+                e.consume();
                 PantallaMenu.jugador.Izquierda();
                 if (PantallaMenu.jugador.getObjeto().getLayoutX() > 100) {
                     PantallaMenu.jugador.getObjeto().setLayoutX(PantallaMenu.jugador.getObjeto().getLayoutX() - 5);

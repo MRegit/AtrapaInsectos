@@ -24,7 +24,7 @@ import javafx.util.Duration;
 public class Mosca extends Insecto {
 
     private Path path;
-    static ArrayList<Path> UbicacionesPaths = new ArrayList<Path>();
+    static final ArrayList<Path> UbicacionesPaths = new ArrayList<Path>();
 
     public Mosca(int puntos) {
         super(puntos);
