@@ -62,7 +62,7 @@ public class AtrapandoInsectos extends Application {
         //boton para empezar el juego
         pMenu.getbEmpezar().setOnAction((ActionEvent e) -> {
             
-            Nivel nivel = new Nivel();                 //activa el timepo cuando presioa el boton play
+            Nivel1 nivel = new Nivel1();                 //activa el timepo cuando presioa el boton play
 
         });
         pr.setTitle("CATCH INSECTS!!");

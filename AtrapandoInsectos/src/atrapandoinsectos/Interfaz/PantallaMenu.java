@@ -34,7 +34,7 @@ public class PantallaMenu {
     private String nombre;
     private String tipo;
     static  Araña jugador;
-    private Button bEmpezar;
+    private Button bEmpezar=new Button("PLAY");;
     private VBox root2;
     private ImageView personaje;
 
@@ -70,7 +70,7 @@ public class PantallaMenu {
         Button guardarNombre=new Button("Guardar");
         ComboBox comboSkin=new ComboBox<>();
         comboSkin.setDisable(true);
- 
+        bEmpezar.setDisable(true);
         String[] skins={"spider1","Arana","araña1","araña4"};
         comboSkin.setItems(FXCollections.observableArrayList(skins));
         comboSkin.setValue(skins[0]);
@@ -81,6 +81,7 @@ public class PantallaMenu {
                 tipo=(String)comboSkin.getValue();
                 jugador=new Araña(nombre.getText(),tipo,0);
                 guardarNombre.setDisable(true);
+                bEmpezar.setDisable(false);
             }
             
         });
@@ -111,7 +112,7 @@ public class PantallaMenu {
     }
     public StackPane seccionInferior(){
         StackPane panelInferior=new StackPane();
-        bEmpezar=new Button("PLAY");
+        
         panelInferior.getChildren().add(bEmpezar);
         bEmpezar.setPrefSize(170, 85);
         panelInferior.setPadding(new Insets(40));

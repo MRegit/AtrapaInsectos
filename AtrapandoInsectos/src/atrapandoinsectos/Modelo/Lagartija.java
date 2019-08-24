@@ -16,6 +16,7 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.CubicCurveTo;
+import javafx.scene.shape.LineTo;
 import javafx.scene.shape.MoveTo;
 import javafx.scene.shape.Path;
 import javafx.util.Duration;
@@ -31,43 +32,38 @@ public class Lagartija extends Insecto {
         Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/Lagartija-g.gif"), 175, 175, true, true);
         imagen = new ImageView(img);
          path = generarPath();
-        posicion();
+        
        
     }
 
     @Override
     public void run() {
-        Insecto.pt = new PathTransition(Duration.millis(30000), path, super.getObjeto());
-        Insecto.pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
-        Insecto.pt.setCycleCount(Animation.INDEFINITE);
-        Insecto.pt.setAutoReverse(true);
-        Insecto.pt.play();
+        pt = new PathTransition(Duration.millis(50000), path, super.getObjeto());
+        pt.setOrientation(PathTransition.OrientationType.ORTHOGONAL_TO_TANGENT);
+        pt.setCycleCount(Animation.INDEFINITE);
+        pt.setAutoReverse(false);
+        pt.play();
 
     }
 
-    public static void pausar() {
-        if (parar == true) {
-            Insecto.pt.stop();
-        }else{
-            Insecto.pt.play();
-        }
-    }
     public Path generarPath() {
-        MoveTo inicio = new MoveTo();
+        Integer[] rotaciones={25,-205,205,-25};
+        MoveTo inicio = new MoveTo(70, 250);
         Path path = new Path();
         path.getElements().add(inicio);
         Random rd = new Random();
         path.setFill(null);
-        path.setStroke(Color.GRAY);
-        path.setStrokeWidth(2);
-
-            CubicCurveTo c1=new CubicCurveTo(380, 0, 380, 120, 200, 120);
-            CubicCurveTo c2=new CubicCurveTo(0, 120, 0, 240, 380, 240);
-            CubicCurveTo c3=new CubicCurveTo(480, 240, 480, 360, 200, 360);
-            CubicCurveTo c4=new CubicCurveTo(0, 360, 0, 480, 380, 480);
-            
-            path.getElements().addAll(c1,c2,c3,c4);
-       
+        CubicCurveTo c1 = new CubicCurveTo(250, 200, 115, 350, 350, 250);
+        CubicCurveTo c2 = new CubicCurveTo(550, 200, 465, 350, 650, 250);
+        CubicCurveTo c3 = new CubicCurveTo(950, 200, 815, 350, 950, 250);
+        LineTo line = new LineTo(550, 50);
+        LineTo line2 = new LineTo(120, 250);
+        LineTo line3 = new LineTo(550, 500);
+        LineTo line4 = new LineTo(950, 250);
+        LineTo line5 = new LineTo(120, 250);
+        path.getElements().addAll(c1, c2, c3, line, line2, line3, line4, line5);
+        int rotacion=rotaciones[rd.nextInt(4)];
+        path.setRotate(rotacion);
         return path;
     }
 
@@ -85,30 +81,7 @@ public class Lagartija extends Insecto {
         
     }
 
-    public ImageView getImagen() {
-        return imagen;
-    }
-    
-    /*
-    meto para la posicion inicial de la lagartija
-     */
-    public void posicion() {
-        Random r = new Random();
-//        int valorDado = r.nextInt(4);
-        if (0 == 0) {
-            imagen.relocate(80, 0);
-        }
-//        if (valorDado == 1) {
-//            imagen.relocate(950, 0);
-//        }
-//        if (valorDado == 2) {
-//            imagen.relocate(80, 500);
-//        }
-//        if (valorDado == 3) {
-//            imagen.relocate(950, 500);
-//
-//        }
-    }
+
     
 
 }

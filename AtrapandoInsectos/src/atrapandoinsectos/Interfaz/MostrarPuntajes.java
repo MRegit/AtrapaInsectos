@@ -85,6 +85,7 @@ public class MostrarPuntajes {
         clnivel.setMinWidth((tb.getMaxWidth()/4)-1);
           
         tb.getColumns().addAll(clnombre,clfecha,clpuntos,clnivel);
+        
         vb.getChildren().addAll(lb,tb,bt);
         vb.setAlignment(Pos.TOP_CENTER);
         vb.setSpacing(15);
@@ -92,7 +93,7 @@ public class MostrarPuntajes {
         
         
         root.getChildren().add(vb);
-    
+        
     
     
     }

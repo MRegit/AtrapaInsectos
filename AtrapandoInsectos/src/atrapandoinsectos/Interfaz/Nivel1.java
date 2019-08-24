@@ -64,9 +64,6 @@ public class Nivel1 {
     //
     Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/Telarana1.png"), 120, 120, true, true);
     ImageView imgv = new ImageView(img);  //imagen de la telarana para hacer colision
-
-    ImageView imgTelaLagartija = new ImageView(new Image("/Recursos/Imagenes/Lagartija-telerana.png"));
-
     private Stage stage;
 
     private Thread Mlagartija;
@@ -129,9 +126,9 @@ public class Nivel1 {
 
         telarana = new Telarana(imgv);
 
-        PantallaMenu.jugador.getImagen().relocate(570, 300); //posicion de la arana central
-        PantallaMenu.jugador.getImagen().setFocusTraversable(true);
-        PantallaMenu.jugador.getImagen().setOnKeyPressed(e -> mover(e));
+        PantallaMenu.jugador.getObjeto().relocate(570, 300); //posicion de la arana central
+        PantallaMenu.jugador.getObjeto().setFocusTraversable(true);
+        PantallaMenu.jugador.getObjeto().setOnKeyPressed(e -> mover(e));
 
         root3 = new VBox();
         //
@@ -153,8 +150,8 @@ public class Nivel1 {
         //gamePane.setId("gamePane");
         gamePane.getChildren().add(new ImageView(new Image("/Recursos/Imagenes/cesped1.png")));
         gamePane.setPrefSize(1200, 600);
-        gamePane.getChildren().add(PantallaMenu.jugador.getImagen());
-        gamePane.getChildren().add(lagartija.getImagen());
+        gamePane.getChildren().add(PantallaMenu.jugador.getObjeto());
+        gamePane.getChildren().add(lagartija.getObjeto());
 
         root3.getChildren().addAll(panelsuper, gamePane);
     }
@@ -178,9 +175,9 @@ public class Nivel1 {
             case UP:
                 e.consume();
                 PantallaMenu.jugador.Arriba();
-                if (PantallaMenu.jugador.getImagen().getLayoutY() > 0) {
+                if (PantallaMenu.jugador.getObjeto().getLayoutY() > 0) {
 
-                    PantallaMenu.jugador.getImagen().setLayoutY(PantallaMenu.jugador.getImagen().getLayoutY() - 5);
+                    PantallaMenu.jugador.getObjeto().setLayoutY(PantallaMenu.jugador.getObjeto().getLayoutY() - 5);
                 }
                 ColisionHormiga();
                 ColisionMosca();
@@ -190,8 +187,8 @@ public class Nivel1 {
                 break;
             case DOWN:
                 PantallaMenu.jugador.Abajo();
-                if (PantallaMenu.jugador.getImagen().getLayoutY() < 525) {
-                    PantallaMenu.jugador.getImagen().setLayoutY(PantallaMenu.jugador.getImagen().getLayoutY() + 5);
+                if (PantallaMenu.jugador.getObjeto().getLayoutY() < 525) {
+                    PantallaMenu.jugador.getObjeto().setLayoutY(PantallaMenu.jugador.getObjeto().getLayoutY() + 5);
                 }
                 ColisionHormiga();
                 ColisionMosca();
@@ -201,8 +198,8 @@ public class Nivel1 {
             case RIGHT:
                 e.consume();
                 PantallaMenu.jugador.Derecha();
-                if (PantallaMenu.jugador.getImagen().getLayoutX() < 1025) {
-                    PantallaMenu.jugador.getImagen().setLayoutX(PantallaMenu.jugador.getImagen().getLayoutX() + 5);
+                if (PantallaMenu.jugador.getObjeto().getLayoutX() < 1025) {
+                    PantallaMenu.jugador.getObjeto().setLayoutX(PantallaMenu.jugador.getObjeto().getLayoutX() + 5);
                 }
                 ColisionHormiga();
                 ColisionMosca();
@@ -211,8 +208,8 @@ public class Nivel1 {
                 break;
             case LEFT:
                 PantallaMenu.jugador.Izquierda();
-                if (PantallaMenu.jugador.getImagen().getLayoutX() > 100) {
-                    PantallaMenu.jugador.getImagen().setLayoutX(PantallaMenu.jugador.getImagen().getLayoutX() - 5);
+                if (PantallaMenu.jugador.getObjeto().getLayoutX() > 100) {
+                    PantallaMenu.jugador.getObjeto().setLayoutX(PantallaMenu.jugador.getObjeto().getLayoutX() - 5);
 
                 }
                 ColisionHormiga();
@@ -281,7 +278,7 @@ public class Nivel1 {
 
         while (itHormiga.hasNext()) {
             Hormiga h = itHormiga.next();
-            if (isCollision(h.getImagen(), PantallaMenu.jugador.getImagen())) {    // consdicion si la imagen colisiona con la arana
+            if (isCollision(h.getObjeto(), PantallaMenu.jugador.getObjeto())) {    // consdicion si la imagen colisiona con la arana
                 gamePane.getChildren().remove(h.getObjeto());
                 itHormiga.remove();
                 PantallaMenu.jugador.setPuntos(10 + PantallaMenu.jugador.getPuntos());
@@ -300,7 +297,7 @@ public class Nivel1 {
         Iterator<Mosca> itMosca = moscas.iterator(); //ir uno a uno en una coleccion, puedo eliminar sin afectar su indice
         while (itMosca.hasNext()) {
             Mosca m = itMosca.next();
-            if (isCollision(m.getImagen(), PantallaMenu.jugador.getImagen())) {    // consdicion si la imagen colisiona con la arana
+            if (isCollision(m.getObjeto(), PantallaMenu.jugador.getObjeto())) {    // consdicion si la imagen colisiona con la arana
                 gamePane.getChildren().remove(m.getObjeto());
                 itMosca.remove();
                 PantallaMenu.jugador.setPuntos(15 + PantallaMenu.jugador.getPuntos());
@@ -313,10 +310,10 @@ public class Nivel1 {
     colision entre lagartija y arana,donde se elimina un corazon y vuelve aparecer falta mejorar
      */
     public void ColisionLagartija() {
-        if (isCollision(lagartija.getImagen(), PantallaMenu.jugador.getImagen())) {
+        if (isCollision(lagartija.getObjeto(), PantallaMenu.jugador.getObjeto())) {
 
-            gamePane.getChildren().remove(PantallaMenu.jugador.getImagen());//
-            ImageView j = AparecerArana(PantallaMenu.jugador.getVidas());
+            gamePane.getChildren().remove(PantallaMenu.jugador.getObjeto());//
+            Node j = AparecerArana(PantallaMenu.jugador.getVidas());
 
             if (!gamePane.getChildren().add(j)) {
                 gamePane.getChildren().add(j);
@@ -328,17 +325,12 @@ public class Nivel1 {
     colision entre la arana y la telarana, falta aumentar que la lagartija quede atrapada por 5 segundos
      */
     public void ColisionTelaarana() {
-        if (isCollision(telarana.getImagen(), PantallaMenu.jugador.getImagen())) {
+        if (isCollision(telarana.getObjeto(), PantallaMenu.jugador.getObjeto())) {
 
-            //detener el hilo de la lagartija
-            //gamePane.getChildren().remove(lagartija.getImagen());
-            gamePane.getChildren().remove(telarana.getImagen());
-            this.imgTelaLagartija.relocate(lagartija.getPosicionX(), lagartija.getPosicionY());
+            gamePane.getChildren().remove(telarana.getObjeto());
             Thread thrQuitarLagartija = new Thread(new QuitarLagartijaAtrapada());
             thrQuitarLagartija.start();
 
-            //gamePane.getChildren().add(imgTelaLagartija);
-//            System.out.println("despues de img telaLagartija");
         }
     }
 
@@ -392,88 +384,60 @@ public class Nivel1 {
 
         @Override
         public void run() {
+            try {
+                //agrega la telarana en una posicion aleatoria por 5 segundos
+                Random rd = new Random();
+                int milisegundos = 5000 + rd.nextInt(20000);
+                Thread.sleep(milisegundos);
+                Platform.runLater(() -> meterTelaArana());
+                Thread.sleep(10000);
+                
+                Platform.runLater(() -> {
+                    telarana.getObjeto().setDisable(true);
+                    gamePane.getChildren().remove(telarana.getObjeto());
+                    
+                });
 
-            do {
-                try {
-                    //agrega la telarana en una posicion aleatoria por 5 segundos
-                    Platform.runLater(() -> meterTelaArana());
-                    Thread.sleep(10000);
-                    //remueve la telarana por 30 segundos
-                    Platform.runLater(() -> gamePane.getChildren().remove(imgv));
-                    Thread.sleep(5000);
+            } catch (InterruptedException ex) {
+                Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
+            }
 
-                } catch (InterruptedException ex) {
-                    Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
-                }
-            } while (true);
         }
     }
 
-    /*
-    
-     */
- /*
-    hilo para la telarana, aparece durante 5 segundos y demora en aparecer unos 30 segundos
-     */
     class QuitarLagartijaAtrapada implements Runnable {
-        private boolean acabar=false;
+
+        private boolean acabar = false;
+
         @Override
         public void run() {
-
-            //
-//            do {
-//
-//                try {
-//                    Platform.runLater(() -> ColisionTelaarana());
-//                    Thread.sleep(5000);
-//                    Platform.runLater(() -> devueltalagartija());
-//                    Platform.runLater(()-> lagartija.setImagen("Lagartija-telerana.png"));
-//                    lagartija.getPt().play();
-//                } catch (InterruptedException ex) {
-//                    Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
-//                }
-//            } while (true);
-            while (acabar== false) {
+            while (acabar == false) {
                 lagartija.getPt().pause();
-                Platform.runLater(() -> lagartija.setImagen("Lagartija-telerana.png"));
+                Platform.runLater(() -> {
+                    lagartija.setImagen("Lagartija-telerana.png");
+                    lagartija.getObjeto().setDisable(true);
+                });
+
                 try {
                     Thread.sleep(5000);
-                    acabar=true;
+                    acabar = true;
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
                 }
                 lagartija.getPt().play();
-                Platform.runLater(() -> lagartija.setImagen("Lagartija-g.gif"));
+                Platform.runLater(() -> {
+                    lagartija.setImagen("Lagartija-g.gif");
+                    lagartija.getObjeto().setDisable(false);
+                });
             }
         }
     }
 
     /*
-    metodo que ace iniciar el hilo d ela lagartija y la hace aparecer
-     */
-//    private void devueltalagartija() {
-//        if (gamePane.getChildren().contains(imgTelaLagartija)) {
-//            gamePane.getChildren().remove(imgTelaLagartija);
-//            //gamePane.getChildren().add(lagartija.getImagen());
-//            //activar el hilo de la telarana
-//        }
-//    }
-
-    /*
-    metod que maneja si la lagartija se choco con la telarana
-     */
-//    private void lagartijaTela() {
-//        if (this.lagartija.getImagen().isDisable() == true && !this.imgTelaLagartija.isDisable()) {
-//            gamePane.getChildren().remove(this.lagartija.getImagen());
-//
-//        }
-//    }
-
-    /*
     metodo donde anada la telarana y da una posicion aleatoria 
      */
     private void meterTelaArana() {
-        gamePane.getChildren().add(telarana.getImagen());
+        gamePane.getChildren().add(telarana.getObjeto());
         telarana.posicion();
     }
 
@@ -497,26 +461,26 @@ public class Nivel1 {
     metodo que me retorna a la arana al colisionar con la lagartija
     y me resta un corazon
      */
-    public ImageView AparecerArana(int vida) {
-        ImageView imagenjugador = null;
+    public Node AparecerArana(int vida) {
+            Node imagenjugador = null;
         if (vida == 3) {
             PantallaMenu.jugador.setVidas(vida - 1); //elimina una vida
             c.getChildren().remove(corazon);//elimina un corazon
-            imagenjugador = PantallaMenu.jugador.getImagen();
+            imagenjugador = PantallaMenu.jugador.getObjeto();
             imagenjugador.relocate(570, 300);
         }
         if (vida == 2) {
             PantallaMenu.jugador.setVidas(vida - 1);
 
             c.getChildren().remove(corazon2);
-            imagenjugador = PantallaMenu.jugador.getImagen();
+            imagenjugador = PantallaMenu.jugador.getObjeto();
             imagenjugador.relocate(570, 300);
         }
 //        if (vida == 1) {
 //            PantallaMenu.jugador.setVidas(vida - 1);
 //
 //            c.getChildren().remove(corazon3);
-//            imagenjugador = PantallaMenu.jugador.getImagen();
+//            imagenjugador = PantallaMenu.jugador.getObjeto();
 //            imagenjugador.relocate(570, 300);
 //        }
         if (vida == 1) {
@@ -532,13 +496,13 @@ public class Nivel1 {
                 //llamar al metodo que guarda los dtos del juego
                 //regresar al menu para observar los score del juador
                 this.stage.close();
-                imagenjugador = PantallaMenu.jugador.getImagen();
+                imagenjugador = PantallaMenu.jugador.getObjeto();
                 imagenjugador.relocate(570, 300);
 
             } else {
                 // ... user chose CANCEL or closed the dialog
                 Platform.exit();
-                imagenjugador = PantallaMenu.jugador.getImagen();
+                imagenjugador = PantallaMenu.jugador.getObjeto();
                 imagenjugador.relocate(570, 300);
             }
 

@@ -18,7 +18,7 @@ public abstract class Insecto extends Thread{
     protected ImageView imagen;
     private int puntos;
     public static boolean parar = false;
-    public static PathTransition pt;
+    protected PathTransition pt;
     public Insecto() {
     }
 
@@ -84,13 +84,11 @@ public abstract class Insecto extends Thread{
     public ImageView getImagen() {
         return imagen;
     }
-
-    public static PathTransition getPt() {
+   public  PathTransition getPt() {
         return pt;
     }
 
-    public static void setPt(PathTransition pt) {
-        Insecto.pt = pt;
+    public void setPt(PathTransition pt) {
+        this.pt = pt;
     }
-
 }
