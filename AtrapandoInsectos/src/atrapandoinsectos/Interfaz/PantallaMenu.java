@@ -60,7 +60,7 @@ public class PantallaMenu {
         izquierda.setPadding(new Insets(30));
         izquierda.setSpacing(20);
         StackPane derecha=new StackPane();
-        Rectangle instrucciones=new Rectangle(300,300);
+        ImageView instrucciones=new ImageView(new Image("/Recursos/Imagenes/instrucciones.gif",350,400,true,true));
         derecha.getChildren().add(instrucciones);
         GridPane informacion=new GridPane();
         informacion.setVgap(20);

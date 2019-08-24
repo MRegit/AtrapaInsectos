@@ -110,7 +110,7 @@ public class MostrarPuntajes {
             
             while (scanner.hasNextLine()) {
                 // el objeto scanner lee linea a linea desde el archivo
-                String linea = scanner.nextLine();System.out.println(linea);
+                String linea = scanner.nextLine();
                 Scanner delimitar = new Scanner(linea);
                 //se usa una expresión regular
                 //que valida que antes o despues de una coma (,) exista cualquier cosa
