@@ -229,7 +229,7 @@ public class Nivel1 {
     /*
     metodo para mover la arana y sus colisiones
      */
-    public void mover(KeyEvent e) {
+   public void mover(KeyEvent e) {
         switch (e.getCode()) {
             case UP:
                 e.consume();
@@ -242,10 +242,16 @@ public class Nivel1 {
                 ColisionMosca();
                 ColisionLagartija();
                 ColisionTelaarana();
+                if (Nivel2.ColisionRocas()) {
+                    PantallaMenu.jugador.getObjeto().setLayoutY(PantallaMenu.jugador.getObjeto().getLayoutY() + 5);
+                }
+                if (Nivel2.ColisionHojas()) {
+                    PantallaMenu.jugador.getObjeto().setLayoutY(PantallaMenu.jugador.getObjeto().getLayoutY() + 5);
+                }
 
                 break;
             case DOWN:
-                
+
                 PantallaMenu.jugador.Abajo();
                 if (PantallaMenu.jugador.getObjeto().getLayoutY() < 525) {
                     PantallaMenu.jugador.getObjeto().setLayoutY(PantallaMenu.jugador.getObjeto().getLayoutY() + 5);
@@ -254,6 +260,12 @@ public class Nivel1 {
                 ColisionMosca();
                 ColisionLagartija();
                 ColisionTelaarana();
+                if (Nivel2.ColisionRocas()) {
+                    PantallaMenu.jugador.getObjeto().setLayoutY(PantallaMenu.jugador.getObjeto().getLayoutY() - 5);
+                }
+                if (Nivel2.ColisionHojas()) {
+                    PantallaMenu.jugador.getObjeto().setLayoutY(PantallaMenu.jugador.getObjeto().getLayoutY() - 5);
+                }
                 break;
             case RIGHT:
                 e.consume();
@@ -265,6 +277,12 @@ public class Nivel1 {
                 ColisionMosca();
                 ColisionLagartija();
                 ColisionTelaarana();
+                if (Nivel2.ColisionRocas()) {
+                    PantallaMenu.jugador.getObjeto().setLayoutX(PantallaMenu.jugador.getObjeto().getLayoutX() - 5);
+                }
+                if (Nivel2.ColisionHojas()) {
+                    PantallaMenu.jugador.getObjeto().setLayoutX(PantallaMenu.jugador.getObjeto().getLayoutX() - 5);
+                }
                 break;
             case LEFT:
                 e.consume();
@@ -277,6 +295,12 @@ public class Nivel1 {
                 ColisionMosca();
                 ColisionLagartija();
                 ColisionTelaarana();
+                if (Nivel2.ColisionRocas()) {
+                    PantallaMenu.jugador.getObjeto().setLayoutX(PantallaMenu.jugador.getObjeto().getLayoutX() + 5);
+                }
+                if (Nivel2.ColisionHojas()) {
+                    PantallaMenu.jugador.getObjeto().setLayoutX(PantallaMenu.jugador.getObjeto().getLayoutX() + 5);
+                }
                 break;
         }
     }
