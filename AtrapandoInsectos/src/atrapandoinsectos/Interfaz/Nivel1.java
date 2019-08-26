@@ -5,6 +5,7 @@
  */
 package atrapandoinsectos.Interfaz;
 
+import static atrapandoinsectos.Interfaz.PantallaMenu.jugador;
 import atrapandoinsectos.Modelo.Hormiga;
 import atrapandoinsectos.Modelo.Lagartija;
 import atrapandoinsectos.Modelo.Mosca;
@@ -122,6 +123,7 @@ public class Nivel1 {
         Mosca.generarPaths();;
         panelsuper = new HBox();
         panelsuper.setId("panelsuper");
+        jugador.setNivelAlcanzado(1);
         c = new HBox();
         corazon = new ImageView(new Image("/Recursos/Imagenes/corazon.png"));
         corazon2 = new ImageView(new Image("/Recursos/Imagenes/corazon.png"));

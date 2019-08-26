@@ -5,9 +5,12 @@
  */
 package atrapandoinsectos.Interfaz;
 
+import static atrapandoinsectos.Interfaz.PantallaMenu.jugador;
 import atrapandoinsectos.Modelo.Insecto;
+import atrapandoinsectos.Modelo.Jugador;
 import atrapandoinsectos.Modelo.Lagartija;
 import atrapandoinsectos.Modelo.Mosca;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
@@ -52,6 +55,8 @@ public class Salir {
         Organizar();
         nuevoStage();
         btaceptar.setOnAction((ActionEvent e) -> {
+            Jugador jg= new Jugador(jugador.getNombre(),LocalDate.now(),jugador.getPuntos(),jugador.getNivelAlcanzado());
+            jg.Escritura();
             Platform.exit();
 
         });

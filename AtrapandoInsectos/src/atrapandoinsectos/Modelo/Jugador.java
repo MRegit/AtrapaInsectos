@@ -77,8 +77,8 @@ public class Jugador implements Comparable<Jugador>{
     public void Escritura() {
         try (BufferedWriter escribir = new BufferedWriter(new FileWriter("src/recursos/datos/jugadores.txt", true))) {
             
-            escribir.write(nombre+ "," + fecha + "," + puntos + "," + nivelAlcanzado);
-            escribir.newLine();
+            escribir.write("\n"+nombre+ "," + fecha + "," + puntos + "," + nivelAlcanzado);
+//            escribir.newLine();
             escribir.close();
             
         } catch (IOException e) {

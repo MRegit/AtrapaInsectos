@@ -18,6 +18,7 @@ public class Araña extends Insecto {
     private int vidas = 3;
     private String nombre;
     private String tipo;
+    private int nivelAlcanzado;
 
     public Araña() {
 
@@ -25,6 +26,7 @@ public class Araña extends Insecto {
 
     public Araña(String nombre, String tipo, int puntos) {
         super(puntos);
+        nivelAlcanzado = 0;
         this.nombre = nombre;
         this.tipo = tipo;
         Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/" + tipo + ".png"), 90, 90, true, true);
@@ -68,6 +70,14 @@ public class Araña extends Insecto {
 
     public void setImagen(ImageView imagen) {
         this.imagen = imagen;
+    }
+
+    public void setNivelAlcanzado(int nivelAlcanzado) {
+        this.nivelAlcanzado = nivelAlcanzado;
+    }
+
+    public int getNivelAlcanzado() {
+        return nivelAlcanzado;
     }
     
 

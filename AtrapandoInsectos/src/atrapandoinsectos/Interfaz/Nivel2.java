@@ -4,6 +4,7 @@
  * and open the template in the editor.
  */package atrapandoinsectos.Interfaz;
 
+import static atrapandoinsectos.Interfaz.PantallaMenu.jugador;
 import atrapandoinsectos.Modelo.Araña;
 import atrapandoinsectos.Modelo.Mosca;
 import java.util.List;
@@ -74,6 +75,7 @@ public class Nivel2 extends Nivel1 {
         hoja3.setFitHeight(100);
         hoja3.setFitWidth(100);
         puntosGanar=150;
+        jugador.setNivelAlcanzado(2);
 
     }
 
