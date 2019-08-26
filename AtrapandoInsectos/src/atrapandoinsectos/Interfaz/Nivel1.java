@@ -7,11 +7,13 @@ package atrapandoinsectos.Interfaz;
 
 import static atrapandoinsectos.Interfaz.PantallaMenu.jugador;
 import atrapandoinsectos.Modelo.Hormiga;
+import atrapandoinsectos.Modelo.Jugador;
 import atrapandoinsectos.Modelo.Lagartija;
 import atrapandoinsectos.Modelo.Mosca;
 import atrapandoinsectos.Modelo.Telarana;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
@@ -580,14 +582,15 @@ public class Nivel1 {
             c.getChildren().remove(corazon3);
             Alert alert = new Alert(AlertType.CONFIRMATION);
             alert.setTitle("Vidas terminadas");
-            alert.setHeaderText("Click en el boton Ok para guardar partida");
+            alert.setHeaderText("Click en el boton Aceptar para guardar partida");
             alert.setContentText("Al presionar cancel (fin del juego)");
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
 
-                //llamar al metodo que guarda los dtos del juego
-                //regresar al menu para observar los score del juador
+                Jugador jg= new Jugador(jugador.getNombre(),LocalDate.now(),jugador.getPuntos(),jugador.getNivelAlcanzado());
+                jg.Escritura();
+                
                 this.stage.close();
                 imagenjugador = PantallaMenu.jugador.getObjeto();
                 imagenjugador.relocate(570, 300);

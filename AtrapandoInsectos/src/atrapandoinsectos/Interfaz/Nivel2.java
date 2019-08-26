@@ -5,6 +5,7 @@
  */
 package atrapandoinsectos.Interfaz;
 
+import static atrapandoinsectos.Interfaz.PantallaMenu.jugador;
 import atrapandoinsectos.Modelo.Araña;
 import atrapandoinsectos.Modelo.Hormiga;
 import atrapandoinsectos.Modelo.Mosca;
@@ -17,6 +18,7 @@ import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
@@ -90,6 +92,7 @@ public class Nivel2 extends Nivel1 {
 
         super.organizar();
         gamePane.getChildren().addAll(roca1, roca2, roca3, hoja1, hoja2, hoja3);
+        removeVidas();
 
     }
 
@@ -110,6 +113,20 @@ public class Nivel2 extends Nivel1 {
             }
         }
         return false;
+    }
+    
+    public void removeVidas() {
+        int vida = jugador.getVidas();
+        if (vida == 2) {
+            c.getChildren().remove(corazon);
+
+        }
+
+        if (vida == 1) {
+            c.getChildren().remove(corazon2);
+            c.getChildren().remove(corazon);
+
+        }
     }
 
 }
