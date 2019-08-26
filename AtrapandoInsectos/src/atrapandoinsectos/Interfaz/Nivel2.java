@@ -55,7 +55,7 @@ public class Nivel2 extends Nivel1 {
 
     @Override
     public void inicializar() {
-        super.inicializar();
+
         roca1 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
         roca2 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
         roca3 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
@@ -68,7 +68,7 @@ public class Nivel2 extends Nivel1 {
         roca1.relocate(600, 100);
         roca2.relocate(800, 400);
         roca3.relocate(250, 300);
-        hoja1 = new ImageView(new Image("/Recursos/Imagenes/Hoja2.png"));  // aqui el error
+        hoja1 = new ImageView(new Image("/Recursos/Imagenes/Hoja2.png"));
         hoja2 = new ImageView(new Image("/Recursos/Imagenes/Hoja2.png"));
         hoja3 = new ImageView(new Image("/Recursos/Imagenes/Hoja2.png"));
         hoja1.relocate(200, 120);
@@ -86,6 +86,8 @@ public class Nivel2 extends Nivel1 {
         hojas.add(hoja1);
         hojas.add(hoja2);
         hojas.add(hoja3);
+        super.inicializar();
+        jugador.setNivelAlcanzado(2);
     }
 
     @Override
@@ -179,13 +181,30 @@ public class Nivel2 extends Nivel1 {
         //condicio para el alert 
         return imagenjugador;
     }
+    
+    @Override
        public void ganar(int puntos) {
         lblpuntos.setText("Puntos: " + PantallaMenu.jugador.getPuntos());
         if (PantallaMenu.jugador.getPuntos() == puntos) {
             this.thrpuntos.suspend();
             mediaPlayer.stop();
-            NivelSuperado NS = new NivelSuperado(this.stage,"Nivel 2 superado, ¡¡VICTORIA!!");
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("FELICIDADES Juego Finalizado");
+            alert.setHeaderText("Click en el boton Aceptar para guardar partida y Regreasar al menú.");
+            alert.setContentText("Click en el boton cancelar para Salir.");
+            Jugador jg = new Jugador(jugador.getNombre(), LocalDate.now(), jugador.getPuntos(), jugador.getNivelAlcanzado());
+            jg.Escritura();
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+               
+                mediaPlayer.stop();
+                puntos = 0;
+                this.stage.close();
 
+            } else {
+                // ... user chose CANCEL or closed the dialog
+                Platform.exit();
+            }
         }
     }
 

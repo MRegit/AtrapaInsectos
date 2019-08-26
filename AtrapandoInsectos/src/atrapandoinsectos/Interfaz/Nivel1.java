@@ -553,8 +553,7 @@ public class Nivel1 {
         if (PantallaMenu.jugador.getPuntos() == puntos) {
             this.thrpuntos.suspend();
             mediaPlayer.stop();
-            NivelSuperado NS = new NivelSuperado(this.stage,"Nivel 1 superado, ¡¡FELICIDADES!!"
-                    + "\n ¿Deseas avanzar al siguiente nivel?");
+            NivelSuperado NS = new NivelSuperado(this.stage);
 
         }
     }
@@ -584,12 +583,12 @@ public class Nivel1 {
             alert.setTitle("Vidas terminadas");
             alert.setHeaderText("Click en el boton Aceptar para guardar partida");
             alert.setContentText("Al presionar cancel (fin del juego)");
+            Jugador jg = new Jugador(jugador.getNombre(), LocalDate.now(), jugador.getPuntos(), jugador.getNivelAlcanzado());
+            jg.Escritura();
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
                 mediaPlayer.stop();
-                Jugador jg = new Jugador(jugador.getNombre(), LocalDate.now(), jugador.getPuntos(), jugador.getNivelAlcanzado());
-                jg.Escritura();
 
                 this.stage.close();
                 imagenjugador = PantallaMenu.jugador.getObjeto();
@@ -598,8 +597,7 @@ public class Nivel1 {
             } else {
                 // ... user chose CANCEL or closed the dialog
                 Platform.exit();
-                imagenjugador = PantallaMenu.jugador.getObjeto();
-                imagenjugador.relocate(570, 300);
+                
             }
 
         }

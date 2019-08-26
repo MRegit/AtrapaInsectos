@@ -94,8 +94,10 @@ public class SeleccionNivel2 {
     public void Organizar() {
         Label horm = new Label("Hormigas:");
         horm.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: WHITE;");
+        horm.setPadding(new Insets(10,25,10,5));
         Label mosc = new Label("Moscas:");
         mosc.setStyle("-fx-font-size: 13px; -fx-font-weight: bold; -fx-text-fill: WHITE;");
+        mosc.setPadding(new Insets(10,25,10,5));
         cajaSeleccion.add(horm, 0, 0);
         cajaSeleccion.add(nHormigas,0,1);
         cajaSeleccion.add(mosc,1,0);

@@ -22,7 +22,9 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 /**
@@ -35,6 +37,7 @@ public class PantallaMenu {
     private String tipo;
     static  Araña jugador;
     private Button bEmpezar=new Button("PLAY");
+    private Button bRegresar = new Button("<-- Regresar");
     private Button guardarNombre=new Button("Guardar");;
     private VBox root2;
     private ImageView personaje;
@@ -118,7 +121,12 @@ public class PantallaMenu {
     public StackPane seccionInferior(){
         StackPane panelInferior=new StackPane();
         panelInferior.setId("inferior");
-        panelInferior.getChildren().add(bEmpezar);
+        HBox hb = new HBox();
+        hb.setAlignment(Pos.CENTER);
+        hb.getChildren().addAll(bEmpezar,bRegresar);
+        hb.setSpacing(30);
+        panelInferior.getChildren().add(hb);
+        bRegresar.setPrefSize(170, 85);
         bEmpezar.setPrefSize(170, 85);
         panelInferior.setPadding(new Insets(40));
         return panelInferior;
@@ -155,6 +163,9 @@ public class PantallaMenu {
     public void setGuardarNombre(Button guardarNombre) {
         this.guardarNombre = guardarNombre;
     }
-    
+
+    public Button getbRegresar() {
+        return bRegresar;
+    }
 
 }

@@ -56,6 +56,10 @@ public class AtrapandoInsectos extends Application {
                pr.setScene(scene);
         });
         
+        pMenu.getbRegresar().setOnAction((ActionEvent e)->{
+               pr.setScene(scene);
+        });
+        
         //boton para salir del juego
         paI.getbExit().setOnAction((ActionEvent e) -> {
             Platform.exit();
