@@ -55,12 +55,12 @@ public class Nivel2 extends Nivel1 {
         roca1 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
         roca2 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
         roca3 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
-        roca1.setFitHeight(150);
-        roca1.setFitWidth(150);
-        roca2.setFitHeight(150);
-        roca2.setFitWidth(150);
-        roca3.setFitHeight(150);
-        roca3.setFitWidth(150);
+        roca1.setFitHeight(100);
+        roca1.setFitWidth(100);
+        roca2.setFitHeight(100);
+        roca2.setFitWidth(100);
+        roca3.setFitHeight(100);
+        roca3.setFitWidth(100);
         roca1.relocate(600, 100);
         roca2.relocate(800, 400);
         roca3.relocate(250, 300);
