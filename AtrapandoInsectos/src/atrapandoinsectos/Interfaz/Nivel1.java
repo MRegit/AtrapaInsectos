@@ -47,31 +47,32 @@ import javafx.stage.Stage;
  */
 public class Nivel1 {
 
-    private VBox root3;
-    private HBox panelsuper;
-    private HBox c;
-    private ImageView corazon;
-    private ImageView corazon2;
-    private ImageView corazon3;
-    private Lagartija lagartija;
-    private Button btsalir;
-    private Label lblTiempo;
-    private Label lblpuntos;
-    private Pane gamePane;
+    protected VBox root3;
+    protected HBox panelsuper;
+    protected HBox c;
+    protected ImageView corazon;
+    protected ImageView corazon2;
+    protected ImageView corazon3;
+    protected Lagartija lagartija;
+    protected Button btsalir;
+    protected Label lblTiempo;
+    protected Label lblpuntos;
+    protected Pane gamePane;
+    protected int puntosGanar;
 
-    private Thread thrTiempo;
+    protected Thread thrTiempo;
 
-    private final Thread thrpuntos;
-    private Thread thrtelarana;
+    protected final Thread thrpuntos;
+    protected Thread thrtelarana;
 
-    private List<Hormiga> hormigas = new ArrayList<>(); //lista de hormigas
-    private List<Mosca> moscas = new ArrayList<>(); // list de moscas
-    private List<Thread> thrMove = new ArrayList<>();
-    private Telarana telarana = new Telarana();
+    protected List<Hormiga> hormigas = new ArrayList<>(); //lista de hormigas
+    protected List<Mosca> moscas = new ArrayList<>(); // list de moscas
+    protected List<Thread> thrMove = new ArrayList<>();
+    protected Telarana telarana = new Telarana();
 
-    private Stage stage;
+    protected Stage stage;
 
-    private Thread Mlagartija;
+    protected Thread Mlagartija;
 
     public Nivel1() {
 
@@ -83,7 +84,7 @@ public class Nivel1 {
         thrTiempo.setDaemon(true);
         thrTiempo.start();
 
-        thrpuntos = new Thread(new Puntos());
+        thrpuntos = new Thread(new Puntos(puntosGanar));
         thrpuntos.setDaemon(true);
         thrpuntos.start();
 
@@ -97,8 +98,8 @@ public class Nivel1 {
         Mlagartija.setDaemon(true);
         Mlagartija.start();
 
-        crearHormigas();
-        crearMoscas();
+        crearHormigas(5);
+        crearMoscas(4);
         //buscar nueva version de suspend
         btsalir.setOnAction((ActionEvent e) -> {
             thrTiempo.suspend(); // al dar click en el boton salir se detinee el tiempo
@@ -138,6 +139,7 @@ public class Nivel1 {
         gamePane = new Pane();
         lblTiempo = new Label("Tiempo: ");
         lblpuntos = new Label("Puntos: ");
+        puntosGanar=110;
 
         PantallaMenu.jugador.getObjeto().relocate(570, 300); //posicion de la arana central
         PantallaMenu.jugador.getObjeto().setFocusTraversable(true);
@@ -280,8 +282,8 @@ public class Nivel1 {
     /*
     creacion de la 5 hormigas 
      */
-    public void crearHormigas() {
-        for (int i = 0; i < 5; i++) {
+    public void crearHormigas(int numeroHormigas) {
+        for (int i = 0; i < numeroHormigas; i++) {
             Hormiga hormiga = new Hormiga(10);
             Random rd = new Random();
             int pX = 100 + rd.nextInt(1000);
@@ -300,8 +302,8 @@ public class Nivel1 {
     /*
     creacion de las 5 moscas
      */
-    public void crearMoscas() {
-        for (int i = 0; i < 4; i++) {
+    public void crearMoscas(int numeroMoscas) {
+        for (int i = 0; i < numeroMoscas; i++) {
             Mosca mosca = new Mosca(15);
             moscas.add(mosca);
             gamePane.getChildren().add(mosca.getObjeto());
@@ -419,12 +421,17 @@ public class Nivel1 {
     hilo para los puntos acumlados
      */
     class Puntos implements Runnable {
+        
+        private int puntos;
+        
+        public Puntos(int puntos){
+            this.puntos = puntos;}
 
         @Override
         public void run() {
             do {
                 try {
-                    Platform.runLater(() -> ganar());
+                    Platform.runLater(() -> ganar(puntos));
                     Thread.sleep(50);
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
@@ -508,9 +515,9 @@ public class Nivel1 {
     metodo para ir al otro nivel
     
      */
-    public void ganar() {
+    public void ganar(int puntos) {
         lblpuntos.setText("Puntos: " + PantallaMenu.jugador.getPuntos());
-        if (PantallaMenu.jugador.getPuntos() == 110) {
+        if (PantallaMenu.jugador.getPuntos() == puntos) {
             this.thrpuntos.suspend();
             NivelSuperado NS = new NivelSuperado(this.stage);
 

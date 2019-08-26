@@ -47,6 +47,7 @@ public class NivelSuperado {
         btcancelar.setOnAction((ActionEvent e) -> {
 //            this.stage.close();
 //            this.thrTiempo.resume();
+
             Platform.exit();
         });
     }
