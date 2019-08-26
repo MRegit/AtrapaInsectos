@@ -5,7 +5,7 @@
     -fx-background-position: center center;
 }
 #informacion{
-    -fx-background-color: black;
+    -fx-background-color: burlywood;
     -fx-padding: 10;
     -fx-border-style: solid inside;
     -fx-border-width: 2;
@@ -13,14 +13,14 @@
     -fx-border-radius: 5;
 }
 #izquierda{
-    -fx-background-color: lightslategray;
+    -fx-background-color: bisque;
     -fx-padding: 10;
     -fx-border-width: 2;
     -fx-border-insets: 5;
     -fx-border-radius: 5;
 }
 #rootCentro{
-    -fx-background-color: darkslategrey;
+    -fx-background-color: burlywood;
     -fx-padding: 10;
     -fx-border-width: 2;
     -fx-border-insets: 5;
@@ -68,4 +68,12 @@
     -fx-font-size: 30px;
     -fx-text-fill:white;
     -fx-font-family: Impact ;
+}
+#inferior { 
+     -fx-background-color: lightsalmon;
+    -fx-padding: 10;
+    -fx-border-width: 2;
+    -fx-border-insets: 5;
+    -fx-border-radius: 5;
+    -fx-border-color: white;
 }

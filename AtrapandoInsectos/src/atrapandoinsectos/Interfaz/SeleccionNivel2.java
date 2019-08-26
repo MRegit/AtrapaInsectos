@@ -50,7 +50,7 @@ public class SeleccionNivel2 {
         nuevoStage();
         btaceptar.setOnAction((ActionEvent e) -> {
             stageJuego.close();
-            Nivel2 nivel2 = new Nivel2();
+            Nivel2 nivel2 = new Nivel2((Integer)nHormigas.getValue(),(Integer)nMoscas.getValue());
             this.stage.close();
 
         });

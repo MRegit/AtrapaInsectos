@@ -23,6 +23,7 @@ public class AtrapandoInsectos extends Application {
     private static Scene scene;
     private static Scene scene2;
     private static Scene scene3;
+    public static Nivel1 nivel;
     public static Stage pr;
 
     @Override
@@ -62,8 +63,9 @@ public class AtrapandoInsectos extends Application {
         });
         //boton para empezar el juego
         pMenu.getbEmpezar().setOnAction((ActionEvent e) -> {
-            
-            Nivel1 nivel = new Nivel1();                 //activa el timepo cuando presioa el boton play
+            pMenu.getbEmpezar().setDisable(true);
+            pMenu.getGuardarNombre().setDisable(false);
+            nivel = new Nivel1(5,4);                 //activa el timepo cuando presiona el boton play
 
         });
         pr.setTitle("CATCH INSECTS!!");

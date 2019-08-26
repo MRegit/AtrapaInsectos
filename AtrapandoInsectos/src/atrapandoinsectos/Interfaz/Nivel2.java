@@ -8,18 +8,23 @@ package atrapandoinsectos.Interfaz;
 import static atrapandoinsectos.Interfaz.PantallaMenu.jugador;
 import atrapandoinsectos.Modelo.Araña;
 import atrapandoinsectos.Modelo.Hormiga;
+import atrapandoinsectos.Modelo.Jugador;
 import atrapandoinsectos.Modelo.Mosca;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -43,14 +48,13 @@ public class Nivel2 extends Nivel1 {
     private static List<ImageView> rocas = new ArrayList<>(); //lista de las rocas
     private static List<ImageView> hojas = new ArrayList<>(); //lista de las hojas
 
-    public Nivel2() {
-        super();
+    public Nivel2(int nHormigas,int nMoscas) {
+        super(nHormigas,nMoscas);
 
     }
 
     @Override
     public void inicializar() {
-
         super.inicializar();
         roca1 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
         roca2 = new ImageView(new Image("/Recursos/Imagenes/Roca.png"));
@@ -82,9 +86,6 @@ public class Nivel2 extends Nivel1 {
         hojas.add(hoja1);
         hojas.add(hoja2);
         hojas.add(hoja3);
-        
-        puntosGanar = 150;
-
     }
 
     @Override
@@ -125,6 +126,59 @@ public class Nivel2 extends Nivel1 {
         if (vida == 1) {
             c.getChildren().remove(corazon2);
             c.getChildren().remove(corazon);
+
+        }
+    }
+    @Override
+    public Node AparecerArana(int vida) {
+        Node imagenjugador = null;
+        if (vida == 3) {
+            PantallaMenu.jugador.setVidas(vida - 1); //elimina una vida
+            c.getChildren().remove(corazon);//elimina un corazon
+            imagenjugador = PantallaMenu.jugador.getObjeto();
+            imagenjugador.relocate(570, 300);
+        }
+        if (vida == 2) {
+            PantallaMenu.jugador.setVidas(vida - 1);
+
+            c.getChildren().remove(corazon2);
+            imagenjugador = PantallaMenu.jugador.getObjeto();
+            imagenjugador.relocate(570, 300);
+        }
+        if (vida == 1) {
+            c.getChildren().remove(corazon3);
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("Vidas terminadas");
+            alert.setHeaderText("Click en el boton Aceptar para guardar partida");
+            alert.setContentText("Al presionar cancel (fin del juego)");
+
+            Optional<ButtonType> result = alert.showAndWait();
+            if (result.get() == ButtonType.OK) {
+                mediaPlayer.stop();
+                Jugador jg = new Jugador(jugador.getNombre(), LocalDate.now(), jugador.getPuntos(), jugador.getNivelAlcanzado());
+                jg.Escritura();
+                gamePane.getChildren().removeAll(roca1, roca2, roca3, hoja1, hoja2, hoja3);
+                this.stage.close();
+                imagenjugador = PantallaMenu.jugador.getObjeto();
+                imagenjugador.relocate(570, 300);
+
+            } else {
+                // ... user chose CANCEL or closed the dialog
+                Platform.exit();
+                imagenjugador = PantallaMenu.jugador.getObjeto();
+                imagenjugador.relocate(570, 300);
+            }
+
+        }
+        //condicio para el alert 
+        return imagenjugador;
+    }
+       public void ganar(int puntos) {
+        lblpuntos.setText("Puntos: " + PantallaMenu.jugador.getPuntos());
+        if (PantallaMenu.jugador.getPuntos() == puntos) {
+            this.thrpuntos.suspend();
+            mediaPlayer.stop();
+            NivelSuperado NS = new NivelSuperado(this.stage,"Nivel 2 superado, ¡¡VICTORIA!!");
 
         }
     }

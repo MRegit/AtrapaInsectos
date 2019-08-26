@@ -26,7 +26,8 @@ import javafx.stage.Stage;
  */
 public class NivelSuperado {
     private VBox root;
-    private Label mensaje;
+    private Label lmensaje;
+    private String mensaje;
     private Button btaceptar;
     private Button btcancelar;
     private HBox cajabotones;
@@ -35,15 +36,17 @@ public class NivelSuperado {
     //private Thread thrTiempo;
     private Stage stageJuego;
     
-    public NivelSuperado(Stage stage1){
+    public NivelSuperado(Stage stage1,String mensaje){
         //this.thrTiempo = thrTiempo;
         this.stageJuego = stage1;
+        this.mensaje=mensaje;
         Inicializar();
         Organizar();
         nuevoStage();
         btaceptar.setOnAction((ActionEvent e) -> {
             SeleccionNivel2 select = new SeleccionNivel2(stageJuego);
             this.stage.close();
+            
 
         });
         btcancelar.setOnAction((ActionEvent e) -> {
@@ -59,8 +62,8 @@ public class NivelSuperado {
     */
      public void Inicializar() {
         root = new VBox();
-        mensaje = new Label("Nivel1 Superado! ¿Deseas continuar al sigueinte nivel?");
-        mensaje.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: WHITE;");
+        lmensaje = new Label(mensaje);
+        lmensaje.setStyle("-fx-font-size: 15px; -fx-font-weight: bold; -fx-text-fill: WHITE;");
         btaceptar = new Button("Aceptar");
         btcancelar = new Button("Salir");
         btaceptar.setStyle("-fx-text-fill: WHITE; -fx-background-color: GREEN;");
@@ -77,7 +80,7 @@ public class NivelSuperado {
         cajabotones.getChildren().addAll(btaceptar, btcancelar);
         cajabotones.setSpacing(20);
         cajabotones.setAlignment(Pos.CENTER);
-        root.getChildren().addAll(mensaje, cajabotones);
+        root.getChildren().addAll(lmensaje, cajabotones);
         root.setAlignment(Pos.CENTER);
         root.setSpacing(20);
 

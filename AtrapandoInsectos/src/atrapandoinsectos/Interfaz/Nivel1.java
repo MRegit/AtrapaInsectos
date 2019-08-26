@@ -5,6 +5,7 @@
  */
 package atrapandoinsectos.Interfaz;
 
+import atrapandoinsectos.AtrapandoInsectos;
 import static atrapandoinsectos.Interfaz.PantallaMenu.jugador;
 import atrapandoinsectos.Modelo.Hormiga;
 import atrapandoinsectos.Modelo.Jugador;
@@ -33,6 +34,7 @@ import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
+import javafx.scene.effect.Bloom;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
@@ -42,6 +44,8 @@ import javafx.scene.layout.VBox;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 /**
@@ -60,9 +64,10 @@ public class Nivel1 {
     protected Button btsalir;
     protected Label lblTiempo;
     protected Label lblpuntos;
-    protected Pane gamePane;
+    protected Pane gamePane = new Pane();
+    ;
     protected int puntosGanar;
-
+    protected MediaPlayer mediaPlayer;
     protected Thread thrTiempo;
 
     protected final Thread thrpuntos;
@@ -77,8 +82,11 @@ public class Nivel1 {
 
     protected Thread Mlagartija;
 
-    public Nivel1() {
-
+    public Nivel1(int nHormigas, int nMoscas) {
+        Mosca.vaciarPath();
+        Mosca.generarPaths();
+        crearHormigas(nHormigas);
+        crearMoscas(nMoscas);
         inicializar();
         organizar();
         nuevoStage();
@@ -101,8 +109,6 @@ public class Nivel1 {
         Mlagartija.setDaemon(true);
         Mlagartija.start();
 
-        crearHormigas(5);
-        crearMoscas(4);
         //buscar nueva version de suspend
         btsalir.setOnAction((ActionEvent e) -> {
             thrTiempo.suspend(); // al dar click en el boton salir se detinee el tiempo
@@ -112,17 +118,16 @@ public class Nivel1 {
                 hilos.suspend();
             }
             lagartija.getPt().pause();
-            for(Mosca m:moscas){
+            for (Mosca m : moscas) {
                 m.getPt().pause();
             }
-            Salir salir = new Salir(this.thrTiempo, this.thrMove,moscas,lagartija);
+            Salir salir = new Salir(this.thrTiempo, this.thrMove, moscas, lagartija);
             e.consume();
         });
 
     }
 
     public void inicializar() {
-        Mosca.generarPaths();;
         panelsuper = new HBox();
         panelsuper.setId("panelsuper");
         jugador.setNivelAlcanzado(1);
@@ -140,10 +145,15 @@ public class Nivel1 {
         btsalir = new Button("Salir");
         btsalir.setPrefSize(100, 75);
         btsalir.setId("botonSalir");
-        gamePane = new Pane();
         lblTiempo = new Label("Tiempo: ");
         lblpuntos = new Label("Puntos: ");
-        puntosGanar=110;
+        puntosGanar = PantallaMenu.jugador.getPuntos();
+        for (Hormiga h : hormigas) {
+            puntosGanar += h.getPuntos();
+        }
+        for (Mosca m : moscas) {
+            puntosGanar += m.getPuntos();
+        }
 
         PantallaMenu.jugador.getObjeto().relocate(570, 300); //posicion de la arana central
         PantallaMenu.jugador.getObjeto().setFocusTraversable(true);
@@ -169,8 +179,11 @@ public class Nivel1 {
         panelsuper.setPadding(new Insets(20, 5, 20, 5));
         panelsuper.setSpacing(150);
         panelsuper.setPrefSize(1200, 100);
-        //gamePane.setId("gamePane");
-        gamePane.getChildren().add(new ImageView(new Image("/Recursos/Imagenes/cesped1.png")));
+        gamePane.getChildren().add(telarana.getObjeto());
+        telarana.getObjeto().setLayoutX(2000);
+        telarana.getObjeto().setLayoutY(2000);
+        gamePane.setId("gamePane");
+        //gamePane.getChildren().add(new ImageView(new Image("/Recursos/Imagenes/cesped1.png")));
         gamePane.setPrefSize(1200, 600);
         gamePane.getChildren().add(PantallaMenu.jugador.getObjeto());
         gamePane.getChildren().add(lagartija.getObjeto());
@@ -184,7 +197,8 @@ public class Nivel1 {
         scene.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
         stage.setScene(scene);
         stage.setTitle("Nivel 1");
-        stage.setResizable(false);  //ventana con relleno no deseado
+        stage.initModality(Modality.APPLICATION_MODAL);
+        stage.setResizable(false);
         stage.show();
 
     }
@@ -194,35 +208,32 @@ public class Nivel1 {
         Path path = Paths.get("src/Recursos/Musica/musica.mp3");
         Media media = new Media(path.toFile().toURI().toString());
         //Se crea un nuevo objeto de tipo MediaPlayer
-        MediaPlayer mediaPlayer = new MediaPlayer(media);
+        mediaPlayer = new MediaPlayer(media);
         //se indica que se inicie automaticamente cuando se cree la clase PantallaJuego
         mediaPlayer.setAutoPlay(true);
         //La musica se repetirá una y otra vez
         mediaPlayer.setCycleCount(20);
         //Se crean los botones de play y pausa para la música
-        Button play = new Button("");
-        play.setPrefSize(30, 30);
-        play.setStyle("-fx-background-image:url('/Recursos/Imagenes/play.png');"
-                + "-fx-background-repeat: stretch;"
-                + "-fx-background-size: " + 60 + " " + (60) + "; "
-                + "-fx-background-position: center center;");
-        Button pau = new Button("");
-        pau.setPrefSize(30, 30);
-        pau.setStyle("-fx-background-image: url('/Recursos/Imagenes/pause.png');"
-                + "-fx-background-repeat: stretch;"
-                + "-fx-background-size: " + 60 + " " + (60) + "; "
-                + "-fx-background-position: center center;");
+        Image img = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/play.png"), 30, 30, true, true);
+        ImageView play = new ImageView(img);
+        ((Node) play).setId("labelPause");
+        Image img2 = new Image(getClass().getResourceAsStream("/Recursos/Imagenes/pause.png"), 30, 30, true, true);
+        ImageView pau = new ImageView(img2);
+        ((Node) pau).setId("labelPause");
+        Bloom bloom = new Bloom();
+        bloom.setThreshold(10);
+        paneles.setEffect(bloom);
         //se crean los eventos de cada boton para que el usuario pueda interactuar con ellos.
-        play.setOnAction(e -> {
-            e.consume();
+        ((Node) play).setOnMouseClicked(e -> {
+
             mediaPlayer.play();
         });
-        pau.setOnAction(e -> {
-            e.consume();
+        ((Node) pau).setOnMouseClicked(e -> {
+
             mediaPlayer.pause();
         });
         MediaView mediaView = new MediaView(mediaPlayer);
-        paneles.getChildren().addAll(play, pau);
+        paneles.getChildren().addAll(((Node) play), ((Node) pau));
         paneles.setSpacing(10);
         paneles.setAlignment(Pos.CENTER);
         return paneles;
@@ -231,7 +242,7 @@ public class Nivel1 {
     /*
     metodo para mover la arana y sus colisiones
      */
-   public void mover(KeyEvent e) {
+    public void mover(KeyEvent e) {
         switch (e.getCode()) {
             case UP:
                 e.consume();
@@ -449,11 +460,12 @@ public class Nivel1 {
     hilo para los puntos acumlados
      */
     class Puntos implements Runnable {
-        
+
         private int puntos;
-        
-        public Puntos(int puntos){
-            this.puntos = puntos;}
+
+        public Puntos(int puntos) {
+            this.puntos = puntos;
+        }
 
         @Override
         public void run() {
@@ -464,7 +476,7 @@ public class Nivel1 {
                 } catch (InterruptedException ex) {
                     Logger.getLogger(Nivel1.class.getName()).log(Level.SEVERE, null, ex);
                 }
-            } while (PantallaMenu.jugador.getPuntos() <= 110);
+            } while (PantallaMenu.jugador.getPuntos() <= puntos);
 
         }
     }
@@ -488,7 +500,8 @@ public class Nivel1 {
                     Thread.sleep(10000);
                     acabar = true;
                     Platform.runLater(() -> {
-                        telarana.setImagen();
+                        telarana.getObjeto().setLayoutX(2000);
+                        telarana.getObjeto().setLayoutY(2000);
                         gamePane.getChildren().remove(telarana.getObjeto());
 
                     });
@@ -529,25 +542,19 @@ public class Nivel1 {
     }
 
     /*
-    metodo donde anada la telarana y da una posicion aleatoria 
+    metodo donde añade la telarana y da una posicion aleatoria 
      */
     private void meterTelaArana() {
-        gamePane.getChildren().add(telarana.getObjeto());
         telarana.posicion();
     }
 
-    /*
-    
-     */
- /*
-    metodo para ir al otro nivel
-    
-     */
     public void ganar(int puntos) {
         lblpuntos.setText("Puntos: " + PantallaMenu.jugador.getPuntos());
         if (PantallaMenu.jugador.getPuntos() == puntos) {
             this.thrpuntos.suspend();
-            NivelSuperado NS = new NivelSuperado(this.stage);
+            mediaPlayer.stop();
+            NivelSuperado NS = new NivelSuperado(this.stage,"Nivel 1 superado, ¡¡FELICIDADES!!"
+                    + "\n ¿Deseas avanzar al siguiente nivel?");
 
         }
     }
@@ -571,13 +578,6 @@ public class Nivel1 {
             imagenjugador = PantallaMenu.jugador.getObjeto();
             imagenjugador.relocate(570, 300);
         }
-//        if (vida == 1) {
-//            PantallaMenu.jugador.setVidas(vida - 1);
-//
-//            c.getChildren().remove(corazon3);
-//            imagenjugador = PantallaMenu.jugador.getObjeto();
-//            imagenjugador.relocate(570, 300);
-//        }
         if (vida == 1) {
             c.getChildren().remove(corazon3);
             Alert alert = new Alert(AlertType.CONFIRMATION);
@@ -587,10 +587,10 @@ public class Nivel1 {
 
             Optional<ButtonType> result = alert.showAndWait();
             if (result.get() == ButtonType.OK) {
-
-                Jugador jg= new Jugador(jugador.getNombre(),LocalDate.now(),jugador.getPuntos(),jugador.getNivelAlcanzado());
+                mediaPlayer.stop();
+                Jugador jg = new Jugador(jugador.getNombre(), LocalDate.now(), jugador.getPuntos(), jugador.getNivelAlcanzado());
                 jg.Escritura();
-                
+
                 this.stage.close();
                 imagenjugador = PantallaMenu.jugador.getObjeto();
                 imagenjugador.relocate(570, 300);

@@ -34,7 +34,8 @@ public class PantallaMenu {
     private String nombre;
     private String tipo;
     static  Araña jugador;
-    private Button bEmpezar=new Button("PLAY");;
+    private Button bEmpezar=new Button("PLAY");
+    private Button guardarNombre=new Button("Guardar");;
     private VBox root2;
     private ImageView personaje;
 
@@ -70,7 +71,7 @@ public class PantallaMenu {
         Label lNombre=new Label("NOMBRE:");
         TextField nombre=new TextField("user 1");
         Label lSkin=new Label("SKIN:");
-        Button guardarNombre=new Button("Guardar");
+        guardarNombre=new Button("Guardar");
         ComboBox comboSkin=new ComboBox<>();
         comboSkin.setDisable(true);
         bEmpezar.setDisable(true);
@@ -85,6 +86,7 @@ public class PantallaMenu {
                 jugador=new Araña(nombre.getText(),tipo,0);
                 guardarNombre.setDisable(true);
                 bEmpezar.setDisable(false);
+                
             }
             
         });
@@ -115,7 +117,7 @@ public class PantallaMenu {
     }
     public StackPane seccionInferior(){
         StackPane panelInferior=new StackPane();
-        
+        panelInferior.setId("inferior");
         panelInferior.getChildren().add(bEmpezar);
         bEmpezar.setPrefSize(170, 85);
         panelInferior.setPadding(new Insets(40));
@@ -145,5 +147,14 @@ public class PantallaMenu {
     public void setRoot2(VBox root2) {
         this.root2 = root2;
     }
+
+    public Button getGuardarNombre() {
+        return guardarNombre;
+    }
+
+    public void setGuardarNombre(Button guardarNombre) {
+        this.guardarNombre = guardarNombre;
+    }
+    
 
 }
