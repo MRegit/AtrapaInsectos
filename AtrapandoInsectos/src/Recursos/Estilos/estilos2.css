@@ -46,19 +46,29 @@
 .button{
     -fx-background-color: dimgray;
     -fx-font-family: Lucida Console; 
-    -fx-text-fill: white;
-    -fx-text-size: 15px;    
+    -fx-text-fill: white;   
 }
 .button:hover {
     -fx-border-color: yellow;
 }
 /* Estilo cuando se posiciona el rat�n sobre cualquier bot�n */
 /* Estilo para bot�n con ID bPlay */
-
-#bEmpezar:hover{ 
-     -fx-font-size: 30px;
-
+#001{
+    -fx-text-size: 20px; 
 }
+
+#001:hover{ 
+     -fx-font-size: 30px;
+     
+}
+#002{
+    -fx-text-size: 20px; 
+}
+
+#002:hover{
+    -fx-font-size: 30px;
+}
+
 #bSalir { 
     -fx-text-fill: white; 
     

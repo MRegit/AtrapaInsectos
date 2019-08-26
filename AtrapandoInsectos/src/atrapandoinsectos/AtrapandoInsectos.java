@@ -39,6 +39,7 @@ public class AtrapandoInsectos extends Application {
         scene2 = new Scene(root2, 1200, 700);  //escena para elegri al arana
         scene2.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos2.css").toExternalForm());
         scene3 = new Scene (puntajes.getRoot(),1200,700);
+        scene3.getStylesheets().add(getClass().getResource("/Recursos/Estilos/estilos3.css").toExternalForm());
         //click en play que se dirige a la scena para elegir la arana
         paI.getbPlay().setOnAction((ActionEvent e) -> {   //dar accion al boton 
             pr.setScene(scene2);

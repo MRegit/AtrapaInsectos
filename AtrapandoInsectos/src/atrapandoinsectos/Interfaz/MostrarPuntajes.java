@@ -57,12 +57,13 @@ public class MostrarPuntajes {
         lb.setBackground(new Background(new BackgroundFill(Color.color(0.5, 0.5, 0.5, 0.7),new CornerRadii(9),new Insets(15,10,15,10))));
         lb.setOpacity(50);
         TableView tb = new TableView();
-        tb.setMaxSize(1150,600);
-        tb.setMinSize(250,500);
+        tb.setMaxSize(1150,575);
+        tb.setMinSize(250,440);
           
-        bt = new Button("<-- Regresar");
-        bt.setFont(new Font(25));
-        bt.setTextFill(Color.CRIMSON);
+        bt = new Button("Regresar");
+        bt.setPrefSize(170,85);
+        bt.setFont(new Font(20));
+//        bt.setTextFill(Color.CRIMSON);
         
         jugadores = cargarDatos();
         Collections.sort(jugadores);

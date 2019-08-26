@@ -37,7 +37,7 @@ public class PantallaMenu {
     private String tipo;
     static  Araña jugador;
     private Button bEmpezar=new Button("PLAY");
-    private Button bRegresar = new Button("<-- Regresar");
+    private Button bRegresar = new Button("Regresar");
     private Button guardarNombre=new Button("Guardar");;
     private VBox root2;
     private ImageView personaje;
@@ -89,6 +89,7 @@ public class PantallaMenu {
                 jugador=new Araña(nombre.getText(),tipo,0);
                 guardarNombre.setDisable(true);
                 bEmpezar.setDisable(false);
+                bEmpezar.setFont(new Font(20));
                 
             }
             
@@ -128,6 +129,10 @@ public class PantallaMenu {
         panelInferior.getChildren().add(hb);
         bRegresar.setPrefSize(170, 85);
         bEmpezar.setPrefSize(170, 85);
+        bEmpezar.setId("001");
+        bRegresar.setId("002");
+        bEmpezar.setFont(new Font(20));
+        bRegresar.setFont(new Font(20));
         panelInferior.setPadding(new Insets(40));
         return panelInferior;
     }

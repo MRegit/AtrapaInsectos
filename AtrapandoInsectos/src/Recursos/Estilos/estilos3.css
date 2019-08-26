@@ -1,0 +1,14 @@
+/* Estilos para la pantalla inicial*/
+.button{
+    -fx-background-color: dimgray;
+    -fx-font-family: Lucida Console; 
+    -fx-text-fill: white;
+    -fx-text-size: 20px;    
+}
+.button:hover {
+    -fx-border-color: yellow;
+    -fx-font-size: 30px;
+}
+/* Estilo cuando se posiciona el rat�n sobre cualquier bot�n */
+/* Estilo para bot�n con ID bPlay */
+

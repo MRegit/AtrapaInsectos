@@ -190,7 +190,7 @@ public class Nivel2 extends Nivel1 {
             mediaPlayer.stop();
             Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
             alert.setTitle("FELICIDADES Juego Finalizado");
-            alert.setHeaderText("Click en el boton Aceptar para guardar partida y Regreasar al menú.");
+            alert.setHeaderText("Click en el boton Aceptar para guardar partida y Regresar al menú.");
             alert.setContentText("Click en el boton cancelar para Salir.");
             Jugador jg = new Jugador(jugador.getNombre(), LocalDate.now(), jugador.getPuntos(), jugador.getNivelAlcanzado());
             jg.Escritura();
