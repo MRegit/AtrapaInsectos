@@ -158,6 +158,12 @@ public class Nivel2 extends Nivel1 {
                 Jugador jg = new Jugador(jugador.getNombre(), LocalDate.now(), jugador.getPuntos(), jugador.getNivelAlcanzado());
                 jg.Escritura();
                 gamePane.getChildren().removeAll(roca1, roca2, roca3, hoja1, hoja2, hoja3);
+                for(ImageView r:rocas){
+                    r.relocate(2000, 2000);
+                }
+                for(ImageView h:hojas){
+                    h.relocate(2000, 2000);
+                }
                 this.stage.close();
                 imagenjugador = PantallaMenu.jugador.getObjeto();
                 imagenjugador.relocate(570, 300);
