@@ -34,7 +34,10 @@ public class NivelSuperado {
 
     //private Thread thrTiempo;
     private Stage stageJuego;
-    
+    /**
+     * Presenta una ventana para la eleccion del numero de hormigas y moscas
+     * @param stage1 
+     */
     public NivelSuperado(Stage stage1){
         //this.thrTiempo = thrTiempo;
         this.stageJuego = stage1;

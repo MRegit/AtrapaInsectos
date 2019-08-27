@@ -41,12 +41,17 @@ public class PantallaMenu {
     private Button guardarNombre=new Button("Guardar");;
     private VBox root2;
     private ImageView personaje;
-
+    /**
+     * Constrcutor de la clase
+     */
     public PantallaMenu() {
         root2 = new VBox();
         root2.getChildren().addAll(seccionSuperior(), seccionCentro(), seccionInferior());
     }
-
+    /**
+     * Crea la seccion superior, y agrega el logo del juego
+     * StackPane
+     */
     public StackPane seccionSuperior(){
         StackPane panelLogo=new StackPane();
         panelLogo.setPrefSize(1200,150);
@@ -56,6 +61,10 @@ public class PantallaMenu {
         panelLogo.setId("panelLogo");
         return panelLogo;
     }
+    /**
+     * Seccion del centro donde se creala araña y se muestra las intrucciones
+     * HBox
+     */
     public HBox seccionCentro(){
         HBox rootCentro=new HBox();
         VBox izquierda=new VBox();
@@ -119,6 +128,10 @@ public class PantallaMenu {
         rootCentro.setPadding(new Insets(20));
         return rootCentro;
     }
+    /**
+     * Método que crea y añade los botonde de play y regresar
+     * StackPane
+     */
     public StackPane seccionInferior(){
         StackPane panelInferior=new StackPane();
         panelInferior.setId("inferior");
@@ -136,39 +149,66 @@ public class PantallaMenu {
         panelInferior.setPadding(new Insets(40));
         return panelInferior;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public Araña getJugador() {
         return jugador;
     }
-
+    /**
+     * 
+     * @param jugador 
+     */
     public void setJugador(Araña jugador) {
         this.jugador = jugador;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public Button getbEmpezar() {
         return bEmpezar;
     }
-
+    /**
+     * 
+     * @param bEmpezar 
+     */
     public void setbEmpezar(Button bEmpezar) {
         this.bEmpezar = bEmpezar;
     }
-
+    /***
+     * 
+     * @return 
+     */
     public VBox getRoot2() {
         return root2;
     }
-
+    /**
+     * 
+     * @param root2 
+     */
     public void setRoot2(VBox root2) {
         this.root2 = root2;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public Button getGuardarNombre() {
         return guardarNombre;
     }
-
+    /**
+     * 
+     * @param guardarNombre 
+     */
     public void setGuardarNombre(Button guardarNombre) {
         this.guardarNombre = guardarNombre;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public Button getbRegresar() {
         return bRegresar;
     }

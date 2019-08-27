@@ -52,7 +52,9 @@ public class Nivel2 extends Nivel1 {
         super(nHormigas,nMoscas);
 
     }
-
+    /**
+     * Agrega los nuevos elementos necesarios para el nivel 2.
+     */
     @Override
     public void inicializar() {
 
@@ -89,7 +91,9 @@ public class Nivel2 extends Nivel1 {
         super.inicializar();
         jugador.setNivelAlcanzado(2);
     }
-
+    /**
+     * Organiza los nuevos elementos del nuvel 2
+     */
     @Override
     public void organizar() {
 
@@ -98,7 +102,10 @@ public class Nivel2 extends Nivel1 {
         removeVidas();
 
     }
-
+        /**
+     * Detecta si hay colision con una roca
+     * @boolean
+     */
     public static boolean ColisionRocas() {
 
         for (ImageView r : rocas) {
@@ -108,7 +115,10 @@ public class Nivel2 extends Nivel1 {
         }
         return false;
     }
-
+    /**
+     * Detecta si hay colision con una hoja
+     * @boolean
+     */
     public static boolean ColisionHojas() {
         for (ImageView h : hojas) {
             if (Nivel1.isCollision(h, PantallaMenu.jugador.getObjeto())) {
@@ -117,7 +127,9 @@ public class Nivel2 extends Nivel1 {
         }
         return false;
     }
-    
+    /**
+     * Remueve los corazones en la parte superior   
+     */
     public void removeVidas() {
         int vida = jugador.getVidas();
         if (vida == 2) {
@@ -131,6 +143,11 @@ public class Nivel2 extends Nivel1 {
 
         }
     }
+    /**
+     * Sobreescribe el método para que aparezca una ventana cuando ya no quedan vidas al jugador.
+     * @param vida
+     * @Node 
+     */
     @Override
     public Node AparecerArana(int vida) {
         Node imagenjugador = null;
@@ -181,7 +198,10 @@ public class Nivel2 extends Nivel1 {
         //condicio para el alert 
         return imagenjugador;
     }
-    
+    /**
+     * Se sobreescribe la clase padre para que aparezca la ventana cuando gana.
+     * @param puntos 
+     */
     @Override
        public void ganar(int puntos) {
         lblpuntos.setText("Puntos: " + PantallaMenu.jugador.getPuntos());

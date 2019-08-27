@@ -45,7 +45,13 @@ public class Salir {
         this.thrTiempo = thrTiempo;
         this.thrMove = thrMove;
     }
-    
+    /**
+     * Pausa o reinicia los hilos que son pasados , además de mostrar una ventana de pausa
+     * @param thrTiempo
+     * @param thrMove
+     * @param moscas
+     * @param lagartija 
+     */
     public Salir(Thread thrTiempo,List<Thread> thrMove,List<Mosca> moscas,Lagartija lagartija) {
         this.thrTiempo = thrTiempo;
         this.thrMove = thrMove;

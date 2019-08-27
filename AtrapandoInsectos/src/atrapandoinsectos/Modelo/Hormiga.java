@@ -26,7 +26,9 @@ public class Hormiga extends Insecto {
         imagen.setPickOnBounds(false);
 
     }
-
+    /**
+     * Se crea el movimiento de la hormiga
+     */
     @Override
     public void run() {
         while (parar == false) {

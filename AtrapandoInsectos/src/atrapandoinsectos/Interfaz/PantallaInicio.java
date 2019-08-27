@@ -51,35 +51,59 @@ public class PantallaInicio {
         root.getChildren().addAll(logo, root2);
 
     }
-
+    /**
+     * 
+     * @return 
+     */
     public Pane getRoot() {
         return root;
     }
-
+    /**
+     * 
+     * @param root 
+     */
     public void setRoot(Pane root) {
         this.root = root;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public Button getbPlay() {
         return bPlay;
     }
-
+    /**
+     * 
+     * @param bPlay 
+     */
     public void setbPlay(Button bPlay) {
         this.bPlay = bPlay;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public Button getbScore() {
         return bScore;
     }
-
+    /**
+     * 
+     * @param bScore 
+     */
     public void setbScore(Button bScore) {
         this.bScore = bScore;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public Button getbExit() {
         return bExit;
     }
-
+    /**
+     * 
+     * @param bExit 
+     */
     public void setbExit(Button bExit) {
         this.bExit = bExit;
     }

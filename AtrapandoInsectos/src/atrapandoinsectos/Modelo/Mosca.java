@@ -32,7 +32,9 @@ public class Mosca extends Insecto {
         imagen = new ImageView(img);
         path = escogerPath();
     }
-
+    /**
+     * Se crea la animación de la mosca
+     */
     @Override
     public void run() {
 
@@ -46,7 +48,9 @@ public class Mosca extends Insecto {
     public ImageView getImagen() {
         return imagen;
     }
-
+    /**
+     * Se generan paths alaeatorios y se los guarda 
+     */
     public static void generarPaths() {
         Integer[] rotaciones = {0, 90, 180, 270};
         Integer[] rotaciones2 = {45, 135, 225, 315};
@@ -71,7 +75,10 @@ public class Mosca extends Insecto {
         }
 
     }
-
+    /**
+     * Escoge uno de los paths en la lista.
+     * @return 
+     */
     public Path escogerPath() {
         Random rd = new Random();
         int indice = rd.nextInt(UbicacionesPaths.size());
@@ -80,6 +87,9 @@ public class Mosca extends Insecto {
         UbicacionesPaths.remove(p);
         return p;
     }
+    /**
+     * Vacia los paths de la lista.
+     */
     public static void vaciarPath() {
         UbicacionesPaths=new ArrayList<Path>();
     }

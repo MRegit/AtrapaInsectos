@@ -85,7 +85,11 @@ public class Jugador implements Comparable<Jugador>{
             System.out.println("Error: " + e);
         }
     }
-
+    /**
+     * Ordena los jugadores por puntos
+     * @param o
+     * @return 
+     */
     @Override
     public int compareTo(Jugador o) {
         

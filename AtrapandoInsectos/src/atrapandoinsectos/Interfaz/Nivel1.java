@@ -202,7 +202,11 @@ public class Nivel1 {
         stage.show();
 
     }
-
+    /**
+     * Se crea la sección de la música
+     * VBox  
+     */
+    
     public VBox seccionMusica() {
         VBox paneles = new VBox();
         Path path = Paths.get("src/Recursos/Musica/musica.mp3");
@@ -512,7 +516,9 @@ public class Nivel1 {
             }
         }
     }
-
+    /**
+     * Hilo para setear la lagartija cuando se atrapa la telaraña
+     */
     class QuitarLagartijaAtrapada implements Runnable {
 
         private boolean acabar = false;

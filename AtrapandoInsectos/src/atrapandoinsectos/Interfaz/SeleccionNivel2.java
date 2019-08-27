@@ -126,11 +126,17 @@ public class SeleccionNivel2 {
         stage.show();
 
     }
-
+    /**
+     * 
+     * @return 
+     */
     public int getnMoscas() {
         return nMoscas.getSelectionModel().getSelectedIndex();
     }
-
+    /**
+     * 
+     * @return 
+     */
     public int getnHormigas() {
         return nHormigas.getSelectionModel().getSelectedIndex();
     }

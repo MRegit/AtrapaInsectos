@@ -36,7 +36,9 @@ public class Lagartija extends Insecto {
         
        
     }
-
+    /**
+     * Crea el movimiento de la lagartija
+     */
     @Override
     public void run() {
         pt = new PathTransition(Duration.millis(50000), path, super.getObjeto());
@@ -46,7 +48,10 @@ public class Lagartija extends Insecto {
         pt.play();
 
     }
-
+    /**
+     * Genera un path aleaotrio.
+     * @return 
+     */
     public Path generarPath() {
         Integer[] rotaciones={25,-205,205,-25};
         MoveTo inicio = new MoveTo(70, 250);

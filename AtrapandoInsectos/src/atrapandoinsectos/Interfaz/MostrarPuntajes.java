@@ -98,7 +98,10 @@ public class MostrarPuntajes {
     
     
     }
-    
+     /**
+      * Se leen los datos dentro del archivo de texto.
+      * ArrayList<Jugador>
+      */
     public static ArrayList<Jugador> cargarDatos(){
         // crea el flujo para leer desde el archivo
         File file = new File("src/recursos/datos/jugadores.txt");
@@ -134,11 +137,17 @@ public class MostrarPuntajes {
         }
         return players;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public StackPane getRoot() {
         return root;
     }
-
+    /**
+     * 
+     * @return 
+     */
     public Button getBt() {
         return bt;
     }
